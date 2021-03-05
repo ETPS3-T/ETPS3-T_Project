@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/user_nav_inicio">
+
+    <fragment
+        android:id="@+id/user_nav_ubicacion"
+        android:name="com.example.sivartravel.user.ubicacion.Ubicacion"
+        android:label="Ubicacion"
+        tools:layout="@layout/user_ubicacion" />
+    <fragment
+        android:id="@+id/user_nav_inicio"
+        android:name="com.example.sivartravel.user.inicio.Inicio"
+        android:label="Inicio"
+        tools:layout="@layout/user_inicio" />
+    <fragment
+        android:id="@+id/user_nav_informacion"
+        android:name="com.example.sivartravel.user.informacion.Informacion"
+        android:label="Informacion"
+        tools:layout="@layout/user_informacion" />
+    <fragment
+        android:id="@+id/user_nav_lugares"
+        android:name="com.example.sivartravel.user.lugares.Lugares"
+        android:label="Lugares"
+        tools:layout="@layout/user_lugares" />
+</navigation>

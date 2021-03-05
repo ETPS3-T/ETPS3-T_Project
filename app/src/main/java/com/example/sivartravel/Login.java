@@ -18,7 +18,7 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         Usuario = findViewById(R.id.txtUsuario);
         Contraseña = findViewById(R.id.txtContraseña);
-        Aceptar = findViewById(R.id.btnAceptar);
+        Aceptar = findViewById(R.id.btaceptar);
         Registro = findViewById(R.id.btnRegistar);
 
         Registro.setOnClickListener(new View.OnClickListener() {
@@ -28,6 +28,12 @@ public class Login extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
+        Aceptar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(),MenuUser.class);
+                startActivity(i);
+            }
+        });
     }
 }
