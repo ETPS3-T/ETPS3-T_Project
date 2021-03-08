@@ -25,4 +25,8 @@
         android:name="com.example.sivartravel.user.lugares.Lugares"
         android:label="Lugares"
         tools:layout="@layout/user_lugares" />
+    <fragment
+        android:id="@+id/user_nav_logout"
+        android:name="com.example.sivartravel.user.logout.Logout"
+        android:label="Cerrar Sesion"/>
 </navigation>
