@@ -18,7 +18,7 @@ public class Lugares extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.user_lugares, container, false);
-        final TextView textView = root.findViewById(R.id.text_home);
+
 
         return root;
     }

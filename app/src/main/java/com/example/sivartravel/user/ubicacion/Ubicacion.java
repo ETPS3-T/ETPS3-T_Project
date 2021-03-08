@@ -18,7 +18,7 @@ public class Ubicacion extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.user_ubicacion, container, false);
-        final TextView textView = root.findViewById(R.id.text_home);
+
 
         return root;
     }
