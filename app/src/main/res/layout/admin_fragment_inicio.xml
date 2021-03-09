@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".admin.admin_Inicio"
+    android:padding="5dp"
+    android:orientation="vertical"
+    android:background="@drawable/admin_fondo"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TU INFORMACION PERSONAL "
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:padding="10dp"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/white"
+            >
+
+        </TextView>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="200dp"
+        android:padding="20dp"
+        >
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nombres"
+            android:textSize="20dp"
+            android:textColor="@color/white"
+            >
+
+        </TextView>
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="ESCRIBE AQUI TU NOMBRE"
+            android:textColor="@color/white"
+            android:layout_marginLeft="50dp"
+            >
+
+        </EditText>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="250dp"
+        android:padding="20dp"
+        >
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Apellidos"
+            android:textSize="20dp"
+            android:textColor="@color/white"
+            >
+
+        </TextView>
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="ESCRIBE AQUI TU NOMBRE"
+            android:textColor="@color/white"
+            android:layout_marginLeft="50dp"
+            >
+
+        </EditText>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="350dp"
+        android:padding="20dp"
+        >
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="# de identificacion"
+            android:textSize="20dp"
+            android:textColor="@color/white"
+            >
+
+        </TextView>
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="000000000"
+            android:textColor="@color/white"
+            android:layout_marginLeft="50dp"
+            >
+
+        </EditText>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="300dp"
+        android:padding="20dp"
+        >
+
+
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:text="Rol"
+            android:textSize="20dp"
+            android:layout_gravity=""
+            android:textColor="@color/white"
+
+            >
+
+        </TextView>
+        <EditText
+            android:layout_marginRight="0dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Administador"
+            android:textColor="@color/white"
+            android:layout_gravity="top"
+            android:layout_marginBottom="100dp"
+            android:layout_marginLeft="50dp"
+            >
+
+        </EditText>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:text="Editar"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="-240dp"
+
+            >
+
+        </Button>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:text="Guardar"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="160dp"
+
+            >
+
+        </Button>
+
+    </LinearLayout>
+
+</RelativeLayout>
