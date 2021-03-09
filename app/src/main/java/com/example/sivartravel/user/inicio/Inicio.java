@@ -21,6 +21,7 @@ import com.example.sivartravel.info_lugar_fragmento;
 import com.example.sivartravel.user.adaptador.InterfaceClickListener;
 import com.example.sivartravel.user.adaptador.RecyclerViewAdapter;
 import com.example.sivartravel.user.entitys.LugaresEntity;
+import com.example.sivartravel.user.lugares.Lugares;
 import com.example.sivartravel.util.JsonUtil;
 
 import java.util.ArrayList;
@@ -35,9 +36,11 @@ public class Inicio extends Fragment  implements InterfaceClickListener {
                              ViewGroup container, Bundle savedInstanceState) {
        View root = inflater.inflate(R.layout.user_inicio, container, false);
 
-
         rvLugares = (RecyclerView)root.findViewById(R.id.rvLugares);
-        getLugares();
+
+        if(getLugares().isEmpty()){
+            getLugares();
+        }
 
         rvLugares.setLayoutManager(new LinearLayoutManager(getContext()));
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(all, this);
