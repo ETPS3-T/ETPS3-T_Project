@@ -15,6 +15,7 @@ import com.example.sivartravel.R;
 public class Ubicacion extends Fragment {
     private Spinner spinnerTransporte;
     private Spinner spinnerDestino;
+    //add lines
     String [] transportes = {"Seleccione","Bus", "Microbus","Automovil"};
     String [] destinos = {"Seleccione","Nahuizalco","Suchitoto","Apaneca"};
 
