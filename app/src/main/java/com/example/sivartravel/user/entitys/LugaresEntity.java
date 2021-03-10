@@ -12,11 +12,29 @@ public class LugaresEntity {
     private String descripcion;
     private String informacion;
     private String horario;
+    private String x;
+    private String y;
 
     public LugaresEntity(Integer imagen, String lugar, String departamento) {
         this.imagen = imagen;
         this.lugar = lugar;
         this.departamento = departamento;
+    }
+
+    public String getX() {
+        return x;
+    }
+
+    public void setX(String x) {
+        this.x = x;
+    }
+
+    public String getY() {
+        return y;
+    }
+
+    public void setY(String y) {
+        this.y = y;
     }
 
     public String getDescripcion() {
@@ -43,13 +61,15 @@ public class LugaresEntity {
         this.horario = horario;
     }
 
-    public LugaresEntity(Integer imagen, String lugar, String departamento, String descripcion, String informacion, String horario) {
+    public LugaresEntity(Integer imagen, String lugar, String departamento, String descripcion, String informacion, String horario, String x, String y) {
         this.imagen = imagen;
         this.lugar = lugar;
         this.departamento = departamento;
         this.descripcion = descripcion;
         this.informacion = informacion;
         this.horario = horario;
+        this.x=x;
+        this.y=y;
     }
 
     public LugaresEntity() {

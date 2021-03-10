@@ -7,10 +7,29 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_admin">Administrador</string>
 
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <array name="Departures">
+        <item>Chalatenango</item>
+        <item>Santa Ana</item>
+        <item>San Salvador</item>
+        <item>Cabañas</item>
+        <item>La Paz</item>
+        <item>Sonsonate</item>
+        <item>La Libertad</item>
+        <item>Cuscatlan</item>
+        <item>Morazan</item>
+        <item>Usulutan</item>
+        <item>Santa Tecla</item>
+        <item>San Miguel</item>
+        <item>La Union</item>
+        <item>San Vicente</item>
+    </array>
+    <string name="title_activity_no_sirve">Map</string>
 </resources>

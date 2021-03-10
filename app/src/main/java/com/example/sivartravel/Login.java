@@ -11,6 +11,8 @@ import android.widget.EditText;
 public class Login extends AppCompatActivity {
     private EditText Usuario, Contraseña;
     private Button Aceptar, Registro;
+    private String Usu;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +33,30 @@ public class Login extends AppCompatActivity {
         Aceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(),MenuUser.class);
-                startActivity(i);
+
+                Usu=Usuario.getText().toString();
+
+                if (Usu.equals("1")){
+
+
+                    Intent i = new Intent(getApplicationContext(),MenuUser.class);
+                    startActivity(i);
+
+                 }
+                else {
+
+                    Intent i2 = new Intent(getApplicationContext(),Administrador.class);
+                    startActivity(i2);
+
+                }
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent i = new Intent(getApplicationContext(),MainActivity.class);
+        startActivity(i);
     }
 }
