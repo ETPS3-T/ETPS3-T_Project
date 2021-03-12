@@ -10,7 +10,7 @@
     <com.google.android.gms.maps.MapView
         android:id="@+id/mapView"
         android:layout_width="match_parent"
-        android:layout_height="254dp" />
+        android:layout_height="216dp" />
 
     <LinearLayout
         android:layout_width="393dp"
@@ -45,14 +45,12 @@
 
     </LinearLayout>
 
-    <ScrollView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/Rec"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-    </ScrollView>
+        android:layout_height="match_parent"
+        android:layout_marginLeft="0dp"
+        android:paddingLeft="8dp"
+        android:paddingTop="5dp" />
 
 </LinearLayout>
