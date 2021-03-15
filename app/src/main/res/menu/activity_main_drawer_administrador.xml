@@ -10,6 +10,10 @@
             android:icon="@drawable/ic_home"
             android:title="INICIO" />
 
+        <item
+            android:id="@+id/pruebaBd"
+            android:icon="@drawable/ic_home"
+            android:title="INICIO" />
 
     </group>
     <group>

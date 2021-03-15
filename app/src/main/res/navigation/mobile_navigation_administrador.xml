@@ -10,6 +10,15 @@
         android:id="@+id/admin_Inicio"
         android:name="com.example.sivartravel.admin.admin_Inicio"
         android:label="Inicio"
-        tools:layout="@layout/admin_fragment_inicio" />
+        tools:layout="@layout/admin_fragment_inicio" >
+        <action
+            android:id="@+id/action_admin_Inicio_to_pruebaBd"
+            app:destination="@id/pruebaBd" />
+    </fragment>
+    <fragment
+        android:id="@+id/pruebaBd"
+        android:name="com.example.sivartravel.admin.PruebaBd"
+        android:label="fragment_prueba_bd"
+        tools:layout="@layout/fragment_prueba_bd" />
 
 </navigation>
