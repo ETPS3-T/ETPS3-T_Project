@@ -10,20 +10,20 @@
             android:icon="@drawable/ic_home"
             android:title="INICIO" />
 
-        <item
-            android:id="@+id/pruebaBd"
-            android:icon="@drawable/ic_home"
-            android:title="INICIO" />
 
         <item
             android:id="@+id/administrarLugares"
             android:icon="@drawable/ic_menu_camera"
             android:title="Administrar Lugares"></item>
 
+        <item android:id="@+id/administrarUbicacion"
+            android:icon="@drawable/ic_mapita"
+            android:title="Administar Ubicacion"
+            />
+
     </group>
     <group>
         <item
-
             android:title="____________________________________" />
         <item
 

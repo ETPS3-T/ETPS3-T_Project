@@ -29,5 +29,15 @@
             android:id="@+id/action_administrarLugares_to_admin_Inicio"
             app:destination="@id/admin_Inicio" />
     </fragment>
+    <fragment
+        android:id="@+id/administrarUbicacion"
+        android:name="com.example.sivartravel.admin.AdministrarUbicacion"
+        android:label="Administrar Ubicacion"
+        tools:layout="@layout/fragment_administrar_ubicacion" />
+    <fragment
+        android:id="@+id/listadoDestinos"
+        android:name="com.example.sivartravel.admin.ListadoDestinos"
+        android:label="fragment_listado_destinos"
+        tools:layout="@layout/fragment_listado_destinos" />
 
 </navigation>
