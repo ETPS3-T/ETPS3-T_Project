@@ -7,8 +7,7 @@
     tools:context=".admin.menuAdmin"
     android:padding="5dp"
     android:orientation="vertical"
-    android:background="@drawable/admin_fondo"
-    >
+    android:background="@drawable/admin_fondo">
 
     <LinearLayout
         android:layout_width="match_parent"

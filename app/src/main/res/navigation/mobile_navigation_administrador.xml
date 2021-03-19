@@ -20,5 +20,14 @@
         android:name="com.example.sivartravel.admin.PruebaBd"
         android:label="fragment_prueba_bd"
         tools:layout="@layout/fragment_prueba_bd" />
+    <fragment
+        android:id="@+id/administrarLugares"
+        android:name="com.example.sivartravel.admin.AdministrarLugares"
+        android:label="Administrar lugares"
+        tools:layout="@layout/fragment_administrar_lugares" >
+        <action
+            android:id="@+id/action_administrarLugares_to_admin_Inicio"
+            app:destination="@id/admin_Inicio" />
+    </fragment>
 
 </navigation>
