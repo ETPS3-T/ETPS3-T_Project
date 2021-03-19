@@ -6,7 +6,7 @@
     tools:context=".admin.admin_Inicio"
     android:padding="5dp"
     android:orientation="vertical"
-    android:background="@drawable/admin_fondo"
+    android:background="#091B2D"
     >
 
     <LinearLayout
@@ -46,13 +46,14 @@
             >
 
         </TextView>
+
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
             android:hint="ESCRIBE AQUI TU NOMBRE"
             android:textColor="@color/white"
-            android:layout_marginLeft="50dp"
-            >
+            android:textColorHint="#FFFFFF">
 
         </EditText>
 
@@ -76,13 +77,14 @@
             >
 
         </TextView>
+
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
             android:hint="ESCRIBE AQUI TU NOMBRE"
             android:textColor="@color/white"
-            android:layout_marginLeft="50dp"
-            >
+            android:textColorHint="#FFFFFF">
 
         </EditText>
 
@@ -106,13 +108,14 @@
             >
 
         </TextView>
+
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
             android:hint="000000000"
             android:textColor="@color/white"
-            android:layout_marginLeft="50dp"
-            >
+            android:textColorHint="#FFFFFF">
 
         </EditText>
 
@@ -138,22 +141,23 @@
             >
 
         </TextView>
+
         <EditText
-            android:layout_marginRight="0dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginBottom="100dp"
             android:hint="Administador"
             android:textColor="@color/white"
-            android:layout_gravity="top"
-            android:layout_marginBottom="100dp"
-            android:layout_marginLeft="50dp"
-            >
+            android:textColorHint="#FFFFFF">
 
         </EditText>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:backgroundTint="@color/teal_700"
             android:text="Editar"
             android:layout_gravity="bottom"
             android:layout_marginLeft="-240dp"
@@ -165,7 +169,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:backgroundTint="@color/teal_700"
             android:text="Guardar"
             android:layout_gravity="bottom"
             android:layout_marginLeft="160dp"
