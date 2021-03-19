@@ -7,11 +7,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class Login extends AppCompatActivity {
     private EditText Usuario, Contraseña;
     private Button Aceptar, Registro;
-    private String Usu;
+    private String Usu, Psw;
+    DBHelper DB;
 
 
     @Override
@@ -22,6 +24,7 @@ public class Login extends AppCompatActivity {
         Contraseña = findViewById(R.id.txtContraseña);
         Aceptar = findViewById(R.id.btaceptar);
         Registro = findViewById(R.id.btnRegistar);
+        DB = new DBHelper(this);
 
         Registro.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -33,23 +36,42 @@ public class Login extends AppCompatActivity {
         Aceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String user = Usuario.getText().toString();
+                String pass = Contraseña.getText().toString();
 
-                Usu=Usuario.getText().toString();
+                if(user.equals("")||pass.equals(""))
+                    Toast.makeText(Login.this, "Please enter all the fields", Toast.LENGTH_SHORT).show();
+                else{
+                    Boolean checkuserpass = DB.checkusernamepassword(user, pass);
+                    if(checkuserpass==true){
+                        Toast.makeText(Login.this, "Sign in successfull", Toast.LENGTH_SHORT).show();
+                        Intent intent  = new Intent(getApplicationContext(), MenuUser.class);
+                        startActivity(intent);
+                    }else{
+                        //Toast.makeText(Login.this, "Invalid Credentials", Toast.LENGTH_SHORT).show();
+                        Usu=Usuario.getText().toString();
+                        Psw= Contraseña.getText().toString();
+                        if (Usu.equals("admin")&&(Psw.equals("123"))){
+                            Intent i2 = new Intent(getApplicationContext(),Administrador.class);
+                            startActivity(i2);
+                        }
+                    }
+                }
 
+
+
+            }
+            /*
+            * Usu=Usuario.getText().toString();
                 if (Usu.equals("1")){
-
-
                     Intent i = new Intent(getApplicationContext(),MenuUser.class);
                     startActivity(i);
-
                  }
                 else {
-
                     Intent i2 = new Intent(getApplicationContext(),Administrador.class);
                     startActivity(i2);
-
                 }
-            }
+            * */
         });
     }
 

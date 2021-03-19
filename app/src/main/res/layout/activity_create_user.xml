@@ -24,15 +24,15 @@
         app:layout_constraintVertical_bias="0.478" />
 
     <EditText
-        android:id="@+id/txtCorreo"
+        android:id="@+id/txtContra1"
         android:layout_width="328dp"
         android:layout_height="50dp"
         android:background="@drawable/custominput"
-        android:drawableStart="@drawable/ic_baseline_mail_24"
-        android:drawableLeft="@drawable/ic_baseline_mail_24"
+        android:drawableStart="@drawable/ic_baseline_lock_24"
+        android:drawableLeft="@drawable/ic_baseline_lock_24"
         android:drawablePadding="12dp"
         android:ems="10"
-        android:hint="Correo"
+        android:hint="Contraseña"
         android:inputType="textPassword"
         android:paddingStart="12dp"
         android:paddingEnd="12dp"
@@ -66,7 +66,7 @@
         app:layout_constraintVertical_bias="0.544" />
 
     <EditText
-        android:id="@+id/txtContraseña"
+        android:id="@+id/txtContra2"
         android:layout_width="328dp"
         android:layout_height="50dp"
         android:background="@drawable/custominput"
