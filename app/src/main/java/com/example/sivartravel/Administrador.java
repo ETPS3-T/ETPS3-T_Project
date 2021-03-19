@@ -60,11 +60,13 @@ public class Administrador extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
+    /*
     @Override
     public void onPause(){
         super.onPause();
         finish();
-    }
+    }*/
+
     public void UpdateNavHeader(String corr){
 
         NavigationView navigationView = findViewById(R.id.nav_viewAdmin);
