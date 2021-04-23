@@ -5,6 +5,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class Lugares {
 
+
+
+
     @SerializedName("idLugares")
     @Expose
     private Integer idLugares;
