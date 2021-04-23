@@ -4,10 +4,22 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
+import retrofit2.Call;
 import com.example.sivartravel.R;
+import com.example.sivartravel.entidades.Transporte;
+import com.example.sivartravel.restservice.TransporteApo;
+
+import java.util.List;
+
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -15,6 +27,8 @@ import com.example.sivartravel.R;
  * create an instance of this fragment.
  */
 public class AdministrarUbicacion extends Fragment {
+
+    TextView txtDatosI;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -61,5 +75,50 @@ public class AdministrarUbicacion extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_administrar_ubicacion, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        txtDatosI= view.findViewById(R.id.txtDatosI);
+        ObtenerTransportes();
+
+
+
+    }
+
+    private void ObtenerTransportes() {
+        Retrofit retrofit=new Retrofit.Builder().baseUrl("http://35.223.84.113/ApiSivar/").addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        TransporteApo transporteApo= retrofit.create(TransporteApo.class);
+        Call<List<Transporte>> call=transporteApo.getTransportes();
+
+
+        call.enqueue(new Callback<List<Transporte>>() {
+            @Override
+            public void onResponse(Call<List<Transporte>> call, Response<List<Transporte>> response) {
+            if(!response.isSuccessful()){
+                txtDatosI.setText("Código de respuestas: "+response);
+                return;
+            }
+
+            List<Transporte> datos=response.body();
+           for (Transporte t: datos){
+                String registro="";
+                registro="Id Transporte:"+t.getIdTransporte();
+                txtDatosI.append(registro);
+            }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Transporte>> call, Throwable t) {
+               txtDatosI.setText(t.getMessage());
+            }
+        });
+
+
     }
 }
