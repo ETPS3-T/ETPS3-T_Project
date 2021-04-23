@@ -1,9 +1,15 @@
 package com.example.sivartravel.entidades;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class Departamentos {
 
+    @SerializedName("idDepartamentos")
+    @Expose
     private Integer idDepartamentos;
-
+    @SerializedName("departamentos")
+    @Expose
     private String departamentos;
 
     public Departamentos() {

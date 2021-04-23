@@ -1,11 +1,18 @@
 package com.example.sivartravel.entidades;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class Municipios {
 
+    @SerializedName("idMunicipio")
+    @Expose
     private Integer idMunicipio;
-
+    @SerializedName("municipio")
+    @Expose
     private String municipio;
-
+    @SerializedName("idDepartamentos")
+    @Expose
     private Departamentos idDepartamentos;
 
     public Municipios() {

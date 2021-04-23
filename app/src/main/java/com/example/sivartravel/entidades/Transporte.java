@@ -1,24 +1,42 @@
 package com.example.sivartravel.entidades;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.util.Date;
 
 public class Transporte {
+    @SerializedName("idDepartamentos")
+    @Expose
     private Integer idTransporte;
 
+    @SerializedName("idDepartamentos")
+    @Expose
     private String nombre;
 
+    @SerializedName("idDepartamentos")
+    @Expose
     private Date fecha;
 
+    @SerializedName("idDepartamentos")
+    @Expose
     private Date horaSalida;
 
+    @SerializedName("idDepartamentos")
+    @Expose
     private Date horaRegreso;
 
+    @SerializedName("idDepartamentos")
+    @Expose
     private String costo;
-
+    @SerializedName("idDepartamentos")
+    @Expose
     private String telefono;
-
+    @SerializedName("idDepartamentos")
+    @Expose
     private Integer idUsuario;
-
+    @SerializedName("idDepartamentos")
+    @Expose
     private Lugares idLugares;
 
     public Transporte() {

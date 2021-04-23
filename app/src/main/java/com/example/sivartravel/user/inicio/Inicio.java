@@ -17,14 +17,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.sivartravel.MenuUser;
 import com.example.sivartravel.R;
 import com.example.sivartravel.Splash;
+import com.example.sivartravel.entidades.Lugares;
 import com.example.sivartravel.info_lugar_fragmento;
+import com.example.sivartravel.restservice.RetrofitClient;
+import com.example.sivartravel.restservice.ServicioApi;
 import com.example.sivartravel.user.adaptador.InterfaceClickListener;
 import com.example.sivartravel.user.adaptador.RecyclerViewAdapter;
 import com.example.sivartravel.user.entitys.LugaresEntity;
-import com.example.sivartravel.user.lugares.Lugares;
 import com.example.sivartravel.util.JsonUtil;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * @author Isaias Ortiz
@@ -32,15 +39,24 @@ import java.util.ArrayList;
 public class Inicio extends Fragment  implements InterfaceClickListener {
     RecyclerView rvLugares;
     ArrayList<LugaresEntity> all;
+    List<Lugares> respuesta = new ArrayList<>();
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
        View root = inflater.inflate(R.layout.user_inicio, container, false);
 
         rvLugares = (RecyclerView)root.findViewById(R.id.rvLugares);
         getLugares();
+        lugares();
         rvLugares.setLayoutManager(new LinearLayoutManager(getContext()));
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(all, this);
         rvLugares.setAdapter(adapter);
+
+
+        for(Lugares l : respuesta){
+
+            System.out.println(l.getIdMunicipio().getMunicipio());
+            System.out.println(l.getDescripcion());
+        }
 
         return root;
     }
@@ -62,7 +78,7 @@ public class Inicio extends Fragment  implements InterfaceClickListener {
             info_lugar_fragmento fr=new info_lugar_fragmento();
             Bundle args=new Bundle();
             String jsonLugares= JsonUtil.getGsonParser().toJson(all.get(position));
-            System.out.println(jsonLugares);
+
             args.putString("LugaresEntity", jsonLugares );
             fr.setArguments(args);
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -74,5 +90,30 @@ public class Inicio extends Fragment  implements InterfaceClickListener {
             Toast.makeText(getContext(), all.get(position).getDepartamento() + " "  + all.get(position).getLugar() , Toast.LENGTH_SHORT).show();
         }
     }
+    public List<Lugares> lugares()
+    {
+        ServicioApi service = RetrofitClient.getSOService();
+        Call<List<com.example.sivartravel.entidades.Lugares>> repos = service.getLugares();
+        try {
+            repos.enqueue(new Callback<List<com.example.sivartravel.entidades.Lugares>>() {
+                @Override
+                public void onResponse(Call<List<Lugares>> call, Response<List<Lugares>> response) {
+                    List<Lugares> lugaresLista = response.body();
+                    System.out.println( "1 "+response.body().size());
+                    System.out.println("2 "+lugaresLista.size());
+                    for (Lugares l : lugaresLista){
+                        respuesta.add(l);
+                        System.out.println(l.getIdMunicipio().getMunicipio());
+                    }
 
+                }
+                @Override
+                public void onFailure(Call<List<Lugares>> call, Throwable t) {
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return respuesta;
+    }
 }
