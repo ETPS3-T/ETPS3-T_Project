@@ -11,7 +11,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <TextView
@@ -26,13 +26,13 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:layout_margin="4dp">
+                android:layout_margin="4dp"
+                android:orientation="horizontal">
+
                 <TextView
                     android:id="@+id/textView10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:text="Titulo:"
                     android:textColor="@color/white"
                     android:textSize="16sp" />
@@ -46,21 +46,24 @@
                     android:hint="Nombre del lugar"
                     android:inputType="textPersonName"
                     android:textColor="@color/white"
+                    android:layout_marginLeft="8dp"
                     android:textColorHint="@color/white" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_margin="4dp"
                 android:orientation="vertical">
 
                 <AutoCompleteTextView
                     android:id="@+id/EdtLocationLugar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
                     android:layout_weight="1"
-                    android:drawableLeft="@android:drawable/ic_menu_search"
-                    android:hint="Ingrese la ubicación"
+                    android:drawableLeft="@drawable/location"
+                    android:hint="  Ingrese la ubicación"
                     android:textColor="@color/white"
                     android:textColorHint="@color/white" />
 
@@ -69,6 +72,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="4dp"
+                    android:layout_marginBottom="4dp"
                     android:layout_weight="1"
                     android:text="Descripción:"
                     android:textColor="@color/white"
@@ -77,8 +81,9 @@
                 <EditText
                     android:id="@+id/EdtDescripcionLugar"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="75dp"
                     android:layout_margin="4dp"
+                    android:layout_marginBottom="4dp"
                     android:layout_weight="1"
                     android:ems="10"
                     android:gravity="start|top"
@@ -87,62 +92,94 @@
                     android:textColor="@color/white"
                     android:textColorHint="@color/white" />
 
-                <Button
-                    android:id="@+id/BtnImgPortada"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    app:backgroundTint="@color/teal_700"
-                    android:text="Cargar una imagen" />
 
-                <TextView
-                    android:id="@+id/TvImgSeleccionada"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="4dp"
-                    android:layout_weight="1"
-                    android:text="No ha seleccionado una imagen aún"
-                    android:textColor="@color/white"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/textView12"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_weight="1"
-                    android:text="Cargar más imágenes..."
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
-
-                <ImageButton
-                    android:id="@+id/BtnCargarFotos"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="4dp"
-                    android:layout_weight="1"
-                    app:backgroundTint="@color/teal_700"
-                    android:src="@drawable/ic_menu_camera" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_margin="4dp"
+                android:orientation="horizontal">
 
-                <GridView
-                    android:id="@+id/GridImgs"
+                <TextView
+                    android:id="@+id/textView0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="URL:"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/URLimage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="http://"
+                    android:inputType="textWebEditText"
+                    android:textColor="#FFFFFF"
+                    android:textColorHint="@color/white" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textViewx32"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Departamento:"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+                <Spinner
+                    android:id="@+id/SpinDepartamentos"
                     android:layout_width="match_parent"
-                    android:layout_height="300dp"
-                    android:columnWidth="150dp"
-                    android:horizontalSpacing="4dp"
-                    android:numColumns="4"
-                    android:verticalSpacing="4dp" />
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:dropDownSelector="#091B2D"
+                    android:longClickable="false"
+                    android:spinnerMode="dropdown"
+                    android:textColor="@color/ic_index_background"
+                    android:theme="@style/ThemeOverlay.MaterialComponents.Dark" />
+
+
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_margin="4dp">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Municipio:"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"/>
+
+                <Spinner
+                    android:id="@+id/SpinMunicipio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:dropDownSelector="#091B2D"
+                    android:longClickable="false"
+                    android:spinnerMode="dropdown"
+                    android:textColor="@color/ic_index_background"
+                    android:theme="@style/ThemeOverlay.MaterialComponents.Dark" /> />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="4dp"
                 android:orientation="vertical">
 
                 <Button
