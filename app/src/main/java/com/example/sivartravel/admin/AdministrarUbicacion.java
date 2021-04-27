@@ -9,13 +9,19 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import retrofit2.Call;
+
 import com.example.sivartravel.R;
+import com.example.sivartravel.entidades.Lugares;
 import com.example.sivartravel.entidades.Transporte;
+import com.example.sivartravel.restservice.RetrofitClient;
+import com.example.sivartravel.restservice.ServicioApi;
 import com.example.sivartravel.restservice.TransporteApo;
+import com.example.sivartravel.util.JsonUtil;
+
 
 import java.util.List;
 
+import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -74,50 +80,54 @@ public class AdministrarUbicacion extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_administrar_ubicacion, container, false);
-    }
+        View root= inflater.inflate(R.layout.fragment_administrar_ubicacion, container, false);
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
 
-        txtDatosI= view.findViewById(R.id.txtDatosI);
+
+
+
+        txtDatosI= root.findViewById(R.id.txtDatosI);
+
         ObtenerTransportes();
-
-
-
+        return root;
     }
+
 
     private void ObtenerTransportes() {
-        Retrofit retrofit=new Retrofit.Builder().baseUrl("http://35.223.84.113/ApiSivar/").addConverterFactory(GsonConverterFactory.create())
-                .build();
 
-        TransporteApo transporteApo= retrofit.create(TransporteApo.class);
-        Call<List<Transporte>> call=transporteApo.getTransportes();
+        try {
+            TransporteApo service = RetrofitClient.getSOTransporte();
+            Call<List<Transporte>> repos = service.getTransportes();
+
+            repos.enqueue(new Callback<List<Transporte>>() {
+                @Override
+                public void onResponse(Call<List<Transporte>> call, Response<List<Transporte>> response) {
+                    List<Transporte> Lista = response.body();
+                    System.out.println("SI se pudo"+Lista.size());
+                    for (Transporte t : Lista){
+                        txtDatosI.setText(String.valueOf(t.getIdTransporte()));
+                        System.out.println(""+t.getIdTransporte());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<List<Transporte>> call, Throwable t) {
+                    System.out.println("No se pudo: "+t.getMessage());
+                    System.out.println(t.getStackTrace());
+                    System.out.println(t.getCause());
+                    for (StackTraceElement e:t.getStackTrace()){
+                        System.out.println(e.toString());
+                    }
+                }
+            });
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
 
 
-        call.enqueue(new Callback<List<Transporte>>() {
-            @Override
-            public void onResponse(Call<List<Transporte>> call, Response<List<Transporte>> response) {
-            if(!response.isSuccessful()){
-                txtDatosI.setText("Código de respuestas: "+response);
-                return;
-            }
 
-            List<Transporte> datos=response.body();
-           for (Transporte t: datos){
-                String registro="";
-                registro="Id Transporte:"+t.getIdTransporte();
-                txtDatosI.append(registro);
-            }
 
-            }
-
-            @Override
-            public void onFailure(Call<List<Transporte>> call, Throwable t) {
-               txtDatosI.setText(t.getMessage());
-            }
-        });
 
 
     }
