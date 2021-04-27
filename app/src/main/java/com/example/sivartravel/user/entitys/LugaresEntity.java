@@ -7,6 +7,16 @@ package com.example.sivartravel.user.entitys;
 public class LugaresEntity {
 
     private Integer imagen;
+
+    public String getImagenUri() {
+        return imagenUri;
+    }
+
+    public void setImagenUri(String imagenUri) {
+        this.imagenUri = imagenUri;
+    }
+
+    private String imagenUri;
     private String lugar;
     private String departamento;
     private String descripcion;
@@ -61,8 +71,9 @@ public class LugaresEntity {
         this.horario = horario;
     }
 
-    public LugaresEntity(Integer imagen, String lugar, String departamento, String descripcion, String informacion, String horario, String x, String y) {
-        this.imagen = imagen;
+    public LugaresEntity(String imagen, String lugar, String departamento, String descripcion, String informacion, String horario, String x, String y) {
+        this.imagenUri = imagen;
+
         this.lugar = lugar;
         this.departamento = departamento;
         this.descripcion = descripcion;
@@ -71,6 +82,18 @@ public class LugaresEntity {
         this.x=x;
         this.y=y;
     }
+
+    public LugaresEntity(Integer imagen, String lugar, String departamento, String descripcion, String informacion, String horario, String x, String y) {
+        this.imagen=imagen;
+        this.lugar = lugar;
+        this.departamento = departamento;
+        this.descripcion = descripcion;
+        this.informacion = informacion;
+        this.horario = horario;
+        this.x=x;
+        this.y=y;
+    }
+
 
     public LugaresEntity() {
     }

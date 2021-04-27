@@ -20,4 +20,5 @@ public interface ServicioApi {
                            @Field("userId") long userId);*/
     @GET("Lugares")
     Call<List<Lugares>> getLugares();
+
 }
