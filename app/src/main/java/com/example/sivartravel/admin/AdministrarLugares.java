@@ -5,7 +5,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
+import android.os.StrictMode;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +16,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import com.example.sivartravel.R;
 import com.example.sivartravel.entidades.Departamentos;
 import com.example.sivartravel.entidades.Municipios;
 import com.example.sivartravel.restservice.RetrofitClient;
 import com.example.sivartravel.restservice.ServicioApi;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +33,7 @@ import retrofit2.Response;
 public class AdministrarLugares extends Fragment
 {
     private Button BtnGuardarLugar, BtnListaLugar;
+
     private EditText EdtNombreLugar, EdtLocationLugar, EdtDescripcionLugar, URLimage;
 
     private Spinner SpinDepartamentos, SpinMunicipio;
@@ -56,13 +58,19 @@ public class AdministrarLugares extends Fragment
         SpinDepartamentos = view.findViewById(R.id.SpinDepartamentos);
         SpinMunicipio = view.findViewById(R.id.SpinMunicipio);
 
+        if (android.os.Build.VERSION.SDK_INT > 9)
+        {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
+
         ServicioApi srv = RetrofitClient.getSOService();
 
-        Call<List<Departamentos>> Dep = srv.getDepartamentos();
+        Call<List<com.example.sivartravel.entidades.Departamentos>> Dep = srv.getDepartamentos();
 
         try
         {
-            Dep.enqueue(new Callback<List<Departamentos>>()
+            Dep.enqueue(new Callback<List<com.example.sivartravel.entidades.Departamentos>>()
             {
                 @Override
                 public void onResponse(Call<List<Departamentos>> call, Response<List<Departamentos>> response)
@@ -70,6 +78,9 @@ public class AdministrarLugares extends Fragment
                     if(!response.isSuccessful()){Toast.makeText(getActivity().getApplicationContext(), "ERROR "+response.code(), Toast.LENGTH_SHORT).show(); return;}
 
                     List<Departamentos> Dp = response.body();
+
+                    Log.i("Lo1" , "TEST");
+                    Log.i("Lo2" , response.body().toString());
 
                     for(Departamentos Depart : Dp)
                     {
@@ -86,9 +97,9 @@ public class AdministrarLugares extends Fragment
         }
         catch (Exception e) {e.printStackTrace();}
 
-        Call<List<Municipios>> Mun = srv.getMunicipios();
+        Call<List<com.example.sivartravel.entidades.Municipios>> Mun = srv.getMunicipios();
 
-        Mun.enqueue(new Callback<List<Municipios>>()
+        Mun.enqueue(new Callback<List<com.example.sivartravel.entidades.Municipios>>()
         {
             @Override
             public void onResponse(Call<List<Municipios>> call, Response<List<Municipios>> response)
