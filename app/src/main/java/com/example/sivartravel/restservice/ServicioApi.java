@@ -28,4 +28,7 @@ public interface ServicioApi {
     @GET("Departamentos")
     Call<List<Departamentos>> getDepartamentos();
 
+    @POST("Lugares")
+    Call<List<Lugares>> setLugares();
+
 }

@@ -37,10 +37,10 @@ public class AdministrarLugares extends Fragment
     private EditText EdtNombreLugar, EdtLocationLugar, EdtDescripcionLugar, URLimage;
 
     private Spinner SpinDepartamentos, SpinMunicipio;
-    String StringDepa;
+    String StringDepa, StringMuni;
 
-    ArrayList<Departamentos> AllDp = new ArrayList<>();
-    ArrayList<Municipios> AllMun = new ArrayList<>();
+    ArrayList<String> AllDp;
+    ArrayList<String> AllMun;
 
     public AdministrarLugares() { }
 
@@ -79,16 +79,9 @@ public class AdministrarLugares extends Fragment
 
                     List<Departamentos> Dp = response.body();
 
-                    Log.i("Lo1" , "TEST");
-                    Log.i("Lo2" , response.body().toString());
+                    ObtenerDepartamentos(Dp);
 
-                    for(Departamentos Depart : Dp)
-                    {
-                        AllDp.add(new Departamentos(Depart.getDepartamentos()));
-                        EdtDescripcionLugar.setText(Depart.getDepartamentos());
-                    }
-
-                    ArrayAdapter<Departamentos> Adapter = new ArrayAdapter<>(getActivity().getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, AllDp);
+                    ArrayAdapter<String> Adapter = new ArrayAdapter<>(getActivity().getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, AllDp);
                     SpinDepartamentos.setAdapter(Adapter);
                 }
                 @Override
@@ -99,27 +92,27 @@ public class AdministrarLugares extends Fragment
 
         Call<List<com.example.sivartravel.entidades.Municipios>> Mun = srv.getMunicipios();
 
-        Mun.enqueue(new Callback<List<com.example.sivartravel.entidades.Municipios>>()
-        {
-            @Override
-            public void onResponse(Call<List<Municipios>> call, Response<List<Municipios>> response)
-            {
-                if(!response.isSuccessful()){Toast.makeText(getActivity().getApplicationContext(), "ERROR "+response.code(), Toast.LENGTH_SHORT).show(); return;}
+       try
+       {
+           Mun.enqueue(new Callback<List<com.example.sivartravel.entidades.Municipios>>()
+           {
+               @Override
+               public void onResponse(Call<List<Municipios>> call, Response<List<Municipios>> response)
+               {
+                   if(!response.isSuccessful()){Toast.makeText(getActivity().getApplicationContext(), "ERROR "+response.code(), Toast.LENGTH_SHORT).show(); return;}
 
-                List<Municipios> Muni = response.body();
+                   List<Municipios> Muni = response.body();
 
-                for(Municipios M1: Muni)
-                {
-                    AllMun.add(new Municipios(M1.getMunicipio()));
-                }
+                   ObtenerMunicipios(Muni);
 
-                ArrayAdapter<Municipios> MuniAdapter = new ArrayAdapter<>(getActivity().getApplicationContext(), android.R.layout.simple_spinner_dropdown_item , AllMun);
-                SpinMunicipio.setAdapter(MuniAdapter);
-            }
-
-            @Override
-            public void onFailure(Call<List<Municipios>> call, Throwable t) { }
-        });
+                   ArrayAdapter<String> Adapter2 = new ArrayAdapter<>(getActivity().getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, AllMun);
+                   SpinMunicipio.setAdapter(Adapter2);
+               }
+               @Override
+               public void onFailure(Call<List<Municipios>> call, Throwable t) { }
+           });
+       }
+       catch (Exception e){ e.printStackTrace();};
 
         SpinDepartamentos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
         {
@@ -129,12 +122,19 @@ public class AdministrarLugares extends Fragment
                 StringDepa = parent.getItemAtPosition(position).toString();
                 EdtDescripcionLugar.setText(StringDepa);
             }
-
             @Override
-            public void onNothingSelected(AdapterView<?> parent)
+            public void onNothingSelected(AdapterView<?> parent) { }
+        });
+
+        SpinMunicipio.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
             {
 
             }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) { }
         });
 
 
@@ -153,14 +153,14 @@ public class AdministrarLugares extends Fragment
             @Override
             public void onClick(View v)
             {
-                /*
+                /* Aqui va la actividad que carga la lista de lugares en MODO ADMIN
                 Intent OpenList = new Intent(AdministrarLugares.this, );
                 startActivity(OpenList);*/
             }
         });
     }
 
-    //Comprobar que se haya seleccionado algo
+    //Metodos propios
 
     public boolean Comprobar()
     {
@@ -173,6 +173,31 @@ public class AdministrarLugares extends Fragment
             Toast.makeText(getActivity().getApplicationContext(), "Ingrese los datos e imagenes requeridas" , Toast.LENGTH_LONG).show();
             return false;
         }
+    }
+
+    public ArrayList<String> ObtenerDepartamentos(List<Departamentos> List1)
+    {
+        AllDp = new ArrayList<>();
+
+        for(Departamentos dp1 : List1)
+        {
+            StringDepa = dp1.getDepartamentos();
+            AllDp.add(StringDepa);
+        }
+
+        return AllDp;
+    }
+
+    public  ArrayList<String> ObtenerMunicipios(List<Municipios> List2)
+    {
+        AllMun = new ArrayList<>();
+
+        for(Municipios mun1 : List2)
+        {
+            AllMun.add(mun1.getMunicipio());
+        }
+
+        return  AllMun;
     }
 
     //Otros metodos del fragment que no se usarán
