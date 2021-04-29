@@ -1,6 +1,7 @@
 package com.example.sivartravel.admin;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -46,22 +48,22 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AdministrarUbicacion extends Fragment {
 
-    TextView txtDatosI;
-    Button btnListaUbicacion,btnGuardarUbicacion,btnFecha;
+    TextView txtDatosI,txtFecha,txtHora,txtHora1;
+    Button btnListaUbicacion,btnGuardarUbicacion;
     EditText EdtTransporte,EdtDestino,EdtFecha,EdtHoraSalida,EdtHoraRegreso,EdtCosto,EdtTelefono;
     private int dia, mes, anio, hora, minutos;
 
 
 
     public AdministrarUbicacion() {
-        // Required empty public constructor
+
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View root= inflater.inflate(R.layout.fragment_administrar_ubicacion, container, false);
 
 
@@ -75,7 +77,9 @@ public class AdministrarUbicacion extends Fragment {
         txtDatosI= view.findViewById(R.id.txtDatosI);
         btnListaUbicacion=view.findViewById(R.id.btnListaUbicacion);
         btnGuardarUbicacion=view.findViewById(R.id.btnGuardarUbicacion);
-        btnFecha=view.findViewById(R.id.btnFecha);
+        txtFecha=view.findViewById(R.id.txtFecha);
+        txtHora=view.findViewById(R.id.txtHora);
+        txtHora1=view.findViewById(R.id.txtHora1);
 
         EdtTransporte=view.findViewById(R.id.EdtTransporte);
         EdtDestino=view.findViewById(R.id.EdtDestino); //Borrar!
@@ -86,17 +90,22 @@ public class AdministrarUbicacion extends Fragment {
         EdtTelefono=view.findViewById(R.id.EdtTelefono);
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
-        btnFecha.setOnClickListener(this::AbrirC);
+        txtFecha.setOnClickListener(this::AbrirC);
+        txtHora.setOnClickListener(this::AbrirHora);
+        txtHora1.setOnClickListener(this::AbrirHora1);
 
         btnGuardarUbicacion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                AgregarTransporte();
+                if (!validar()) return ;
+                else
+                    AgregarTransporte();
             }
 
 
         });
+
 
 
 
@@ -115,6 +124,89 @@ public class AdministrarUbicacion extends Fragment {
 
     }
 
+
+    public void AbrirHora(View view) {
+        final Calendar c=Calendar.getInstance();
+        hora=c.get(Calendar.HOUR_OF_DAY);
+        minutos=c.get(Calendar.MINUTE);
+
+        TimePickerDialog tmd=new TimePickerDialog(getContext(), R.style.DialogTheme ,new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+
+                if (hourOfDay==0){
+                    if (minute==0) {
+                        EdtHoraSalida.setText("00:00");
+                    }
+                    else {
+                        EdtHoraSalida.setText("00:"+ minute);
+                    }
+
+                }
+
+                else if(minute==0) {
+                    if (hourOfDay==0) {
+                        EdtHoraSalida.setText("00:00");
+                    }
+                    else {
+                        EdtHoraSalida.setText(hourOfDay + ":00");
+                    }
+                }
+
+                else {
+                    EdtHoraSalida.setText(hourOfDay+ ":"+ minute);
+                }
+
+
+            }
+        },hora,minutos,true);
+
+        tmd.show();
+
+
+    }
+
+    public void AbrirHora1(View view) {
+        final Calendar c=Calendar.getInstance();
+        hora=c.get(Calendar.HOUR_OF_DAY);
+        minutos=c.get(Calendar.MINUTE);
+
+        TimePickerDialog tmd1=new TimePickerDialog(getContext(), R.style.DialogTheme ,new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+
+
+                if (hourOfDay==0){
+                    if (minute==0) {
+                        EdtHoraRegreso.setText("00:00");
+                    }
+                    else {
+                        EdtHoraRegreso.setText("00:"+ minute);
+                    }
+
+                }
+
+                else if(minute==0) {
+                    if (hourOfDay==0) {
+                        EdtHoraRegreso.setText("00:00");
+                    }
+                    else {
+                        EdtHoraRegreso.setText(hourOfDay + ":00");
+                    }
+                }
+
+                else {
+                    EdtHoraRegreso.setText(hourOfDay+ ":"+ minute);
+                }
+            }
+        },hora,minutos,true);
+
+        tmd1.show();
+
+
+    }
+
+
     public void AbrirC(View view) {
         final Calendar c=Calendar.getInstance();
         dia=c.get(Calendar.DAY_OF_MONTH);
@@ -132,6 +224,53 @@ public class AdministrarUbicacion extends Fragment {
         dpd.show();
 
     }
+
+
+    private boolean validar() {
+        String transpor = EdtTransporte.getText().toString().trim();
+        String destinos = EdtDestino.getText().toString().trim();
+        String fecha = EdtFecha.getText().toString().trim();
+        String horaSalida = EdtHoraSalida.getText().toString().trim();
+        String horaRegreso = EdtHoraRegreso.getText().toString().trim();
+        String costo = EdtCosto.getText().toString().trim();
+        String telefono=EdtTelefono.getText().toString().trim();
+
+
+        if (transpor.equals("")) {
+            EdtTransporte.setError("Ingrese un transporte");
+            return false;
+        }
+        if (destinos.equals("")) {
+            EdtDestino.setError("Digite destino");
+            return false;
+        }
+        if (fecha.equals("")) {
+            EdtFecha.setError("Seleccione una fecha");
+            return false;
+        }
+
+        if (horaSalida.equals("")) {
+            EdtHoraSalida.setError("Seleccione una hora");
+            return false;
+        }
+        if (horaRegreso.equals("")) {
+            EdtHoraRegreso.setError("Seleccione una hora");
+            return false;
+        }
+        if (costo.equals("")) {
+            EdtCosto.setError("Ingrese un costo");
+            return false;
+        }
+
+        if (telefono.equals("")) {
+            EdtTelefono.setError("Ingrese un Telefono");
+            return false;
+        }
+
+
+        return true;
+    }
+
 
     public void AgregarTransporte() {
         Transporte t=new Transporte();

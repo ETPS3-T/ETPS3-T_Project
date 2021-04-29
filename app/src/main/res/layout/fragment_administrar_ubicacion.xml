@@ -77,16 +77,15 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="4dp">
-        <Button
-            android:id="@+id/btnFecha"
+        <TextView
+            android:id="@+id/txtFecha"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1.5"
-            android:text="Fecha:"
+            android:text="Seleccione fecha"
             android:onClick="AbrirC"
-            android:backgroundTint="@color/teal_700"
             android:textColor="@color/white"
-            android:textSize="16sp" />
+            android:textSize="16sp"/>
 
         <EditText
             android:id="@+id/EdtFecha"
@@ -108,20 +107,23 @@
         android:layout_marginTop="4dp">
 
         <TextView
+            android:id="@+id/txtHora"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Hora de Salida:"
+            android:text="Seleccione Hora:"
+            android:onClick="AbrirHora"
             android:textColor="@color/white"
-            android:textSize="16sp" />
+            android:textSize="16sp"/>
 
         <EditText
             android:id="@+id/EdtHoraSalida"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="1.5"
             android:ems="10"
-            android:hint="Hora de Salida"
+            android:hint="Hora salida"
+            android:enabled="false"
             android:inputType="textPersonName"
             android:textColor="@color/white"
             android:textColorHint="@color/white" />
@@ -134,10 +136,12 @@
         android:layout_marginTop="4dp">
 
         <TextView
+            android:id="@+id/txtHora1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Hora de regreso:"
+            android:text="Seleccione Hora:"
+            android:onClick="AbrirHora1"
             android:textColor="@color/white"
             android:textSize="16sp" />
 
@@ -147,7 +151,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1.5"
             android:ems="10"
-            android:hint="Ingrese hora regreso"
+            android:hint="Hora regreso"
             android:inputType="textPersonName"
             android:textColor="@color/white"
             android:textColorHint="@color/white" />

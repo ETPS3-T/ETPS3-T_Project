@@ -44,7 +44,7 @@
     <fragment
         android:id="@+id/listadoDestinos"
         android:name="com.example.sivartravel.admin.ListadoDestinos"
-        android:label="listadoDestinos"
+        android:label="listado Destinos"
         tools:layout="@layout/fragment_listado_destinos" >
         <action
             android:id="@+id/action_listadoDestinos_to_administrarUbicacion"

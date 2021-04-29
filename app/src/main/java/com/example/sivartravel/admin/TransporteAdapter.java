@@ -62,10 +62,6 @@ public class TransporteAdapter extends ArrayAdapter<Transporte> {
 
 
 
-
-
-
-
         tvIdtransporte.setText(String.format("IdTransporte:%s",transporte.get(position).getIdTransporte()));
         tvNombre.setText(String.format("Nombre:%s",transporte.get(position).getNombre()));
         tvFecha.setText(String.format("Fecha:%s",transporte.get(position).getFecha()));
