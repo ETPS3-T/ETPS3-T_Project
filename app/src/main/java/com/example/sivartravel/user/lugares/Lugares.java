@@ -1,5 +1,6 @@
 package com.example.sivartravel.user.lugares;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,13 +8,16 @@ import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,6 +27,8 @@ import com.example.sivartravel.user.adaptador.InterfaceClickListener;
 import com.example.sivartravel.user.adaptador.RecyclerViewAdapter;
 import com.example.sivartravel.user.adaptador.RecyclerViewAdapterMini;
 import com.example.sivartravel.user.entitys.LugaresEntity;
+import com.example.sivartravel.util.JsonUtil;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -32,16 +38,25 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-
+/*
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.widget.Autocomplete;
+import com.google.android.libraries.places.widget.AutocompleteActivity;
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
+*/
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-public class Lugares extends Fragment implements OnMapReadyCallback, InterfaceClickListener {
+//import static android.app.Activity.RESULT_OK;
+
+public class Lugares extends Fragment implements OnMapReadyCallback, InterfaceClickListener{
 
     private GoogleMap mimapa;
     private MapView mMapView;
     private Spinner spDepartures;
     private View root;
-
     private RecyclerView Rec;
     private RecyclerView.LayoutManager adapter;
     private ArrayList<LugaresEntity> x = new ArrayList<>();;
@@ -52,8 +67,19 @@ public class Lugares extends Fragment implements OnMapReadyCallback, InterfaceCl
         root = inflater.inflate(R.layout.user_lugares, container, false);
         spDepartures = root.findViewById(R.id.spDepa);
         Rec = (RecyclerView)root.findViewById(R.id.Rec);
+        //Inicializamos Places
+        //Places.initialize(getContext(),"AIzaSyDgIBVb5R2nZCAyoz0H8psXicG41MG6d2A");
 
-
+        /*Set EditText non Focusable
+        UbicacionB.setFocusable(false);
+        UbicacionB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                List<Place.Field> llena = Arrays.asList(Place.Field.ADDRESS,Place.Field.LAT_LNG,Place.Field.NAME);
+                Intent intent = new Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY,llena).build(getContext());
+                startActivityForResult(intent,100);
+            }
+        });*/
         spDepartures.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> spn,View v,int position ,long id) {
@@ -249,7 +275,7 @@ public class Lugares extends Fragment implements OnMapReadyCallback, InterfaceCl
         x.clear();
         x.add(new LugaresEntity(R.drawable.tunas1, "Playa Las Tunas","La Union","CENTRO TURISTICO","","24/7", "13.1605424"," -87.9710184"));
         x.add(new LugaresEntity(R.drawable.fonseca3, "Golfo de Fonseca","La Union", "CENTRO TURISTICO","","24/7", "13.3376146"," -87.8662063"));
-        x.add(new LugaresEntity(R.drawable.conchagua2, "Volcan de Conchagua","La Union", "CENTRO TURISTICO","","24/7", "13.2769043"," -87.8436864"));
+        x.add(new LugaresEntity(R.drawable.main, "Volcan de Conchagua","La Union", "CENTRO TURISTICO","","24/7", "13.2769043"," -87.8436864"));
         x.add(new LugaresEntity(R.drawable.tamarindo1, "Playa El Tamarindo","La Union", "CENTRO TURISTICO","","24/7", "13.1972715"," -87.9146203")); return x;
     }
 
@@ -343,11 +369,42 @@ public class Lugares extends Fragment implements OnMapReadyCallback, InterfaceCl
     @Override
     public void OnItemClick(int position) {
 
+        TransporteLugar tl = new TransporteLugar();
         mimapa.clear();
         mimapa.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(x.get(position).getX()), Double.parseDouble(x.get(position).getY()))).title(x.get(position).getDescripcion()).snippet("NICE"));
         CameraPosition CHA = CameraPosition.builder().target(new LatLng(Double.parseDouble(x.get(position).getX()), Double.parseDouble(x.get(position).getY()))).zoom(15).bearing(0).tilt(35).build();
         mimapa.moveCamera(CameraUpdateFactory.newCameraPosition(CHA));
 
+        Bundle args=new Bundle();
+        String jsonLugares= JsonUtil.getGsonParser().toJson(x.get(position));
+
+        args.putString("Lugares", jsonLugares );
+        tl.setArguments(args);
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.nav_host_fragment, tl);
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        transaction.addToBackStack(null);
+        transaction.commit();
+
+
     }
+
+/*
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==100 && resultCode==RESULT_OK){
+            Place place = Autocomplete.getPlaceFromIntent(data);
+            UbicacionB.setText(place.getAddress());
+            //Set Locality
+            UbicacionB.setText(String.format("Nombre Ubicacion: %s",place.getName()));
+            UbicacionB.setText(String.valueOf(place.getLatLng()));
+
+        }else if(resultCode== AutocompleteActivity.RESULT_ERROR){
+            Status status = Autocomplete.getStatusFromIntent(data);
+            Toast.makeText(getContext(),status.getStatusMessage(),Toast.LENGTH_LONG).show();
+        }
+    }
+    */
 
 }

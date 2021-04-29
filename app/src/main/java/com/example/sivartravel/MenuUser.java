@@ -1,9 +1,16 @@
 package com.example.sivartravel;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 
+import com.example.sivartravel.user.inicio.Inicio;
+import com.example.sivartravel.user.ubicacion.Ubicacion;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -11,6 +18,8 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import java.util.zip.Inflater;
 
 public class MenuUser extends AppCompatActivity{
 
@@ -37,20 +46,58 @@ public class MenuUser extends AppCompatActivity{
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
+
         NavigationUI.setupWithNavController(navigationView, navController);
+        /*
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+
+                    case R.id.user_nav_logout:
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+                        builder.setMessage("Quieres cerrar sesion");
+                        builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                Intent out = new Intent(getApplicationContext(), Login.class);
+                                startActivity(out);
+
+                            }
+                        }); builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            Intent inn = new Intent(getApplicationContext(), MenuUser.class);
+                            startActivity(inn);
+                        }
+                    });
+                        // Create the AlertDialog object and return it
+                        builder.create();
+                        builder.show();
+                        break;
+
+                }
+                return true;
+            }
+        });*/
 
     }
-
+    //Crea boton del menu esquina superior Izquierda
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
-
+    /**/
     public void onPause(){
         super.onPause();
-        finish();
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+
+    }
+
 
 }

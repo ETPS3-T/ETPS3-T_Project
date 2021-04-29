@@ -15,10 +15,10 @@ import com.example.sivartravel.R;
 
 public class Logout extends Fragment {
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+    @Override
+    public void onStart() {
 
-        View root = inflater.inflate(R.layout.user_inicio, container, false);
+        super.onStart();
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage("Quieres cerrar sesion");
         builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
@@ -35,8 +35,5 @@ public class Logout extends Fragment {
         // Create the AlertDialog object and return it
         builder.create();
         builder.show();
-        return root;
     }
-
-
 }

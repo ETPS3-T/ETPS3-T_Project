@@ -54,6 +54,7 @@ public class info_lugar_fragmento extends Fragment {
 
     }
 public void cargarInfo(){
+
     tvLugar.setText(lugarSelect.getLugar());
     tvInformacion.setText(lugarSelect.getInformacion());
     tvUbicacion.setText("Ubicacion: "+lugarSelect.getDepartamento());

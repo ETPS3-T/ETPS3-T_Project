@@ -37,6 +37,7 @@ import retrofit2.Response;
  * @author Isaias Ortiz
  */
 public class Inicio extends Fragment  implements InterfaceClickListener {
+
     RecyclerView rvLugares;
     ArrayList<LugaresEntity> all;
     List<Lugares> respuesta = new ArrayList<>();
@@ -47,10 +48,10 @@ public class Inicio extends Fragment  implements InterfaceClickListener {
         rvLugares = (RecyclerView)root.findViewById(R.id.rvLugares);
         getLugares();
         lugares();
+
         rvLugares.setLayoutManager(new LinearLayoutManager(getContext()));
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(all, this);
         rvLugares.setAdapter(adapter);
-
 
         for(Lugares l : respuesta){
 
@@ -64,6 +65,7 @@ public class Inicio extends Fragment  implements InterfaceClickListener {
     private ArrayList<LugaresEntity> getLugares(){
 
         all= new ArrayList<>();
+
         all.add(new LugaresEntity(R.drawable.main, "Nahuizalco","Sonsonate","Pueblo vivo","Nahuizalco es un poblado de origen prehispánico. Originalmente fue habitado por Náhuas de Kuskatan, y en la época colonial la región perteneció a la Provincia de los Izalcos.\n De acuerdo a una crónica de 1586, se estimaba que los residentes no llegaban a 200 personas.","9:00 am - 17:00 pm", "",""));
         all.add(new LugaresEntity(R.drawable.main, "Suchitoto","Suchitoto", "Pueblo vivo","Suchitoto (en idioma Náhuat \"Shuchitutut\" (Flor-Pájaro) es un municipio del departamento de Cuscatlán, El Salvador.\n Su territorio ha sido habitado desde la época precolombina, y también fue el sitio donde se fundó la villa de San Salvador en 1528, que tuvo una breve existencia.","6:00 am - 20:00 pm", "",""));
         all.add(new LugaresEntity(R.drawable.main, "Apaneca","Ahuachapan", "Pueblo vivo","Ahuachapán fue fundado en el siglo V por los mayas de la tribu pokomames, y sometida en el siglo XV por belicosos Náhuas de Kuskatan de los izalcos.\n Gradualmente la región fue invadida por los españoles.","24/7", "",""));
