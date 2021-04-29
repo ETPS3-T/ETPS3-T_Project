@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import android.os.StrictMode;
+import android.text.Editable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +19,9 @@ import android.widget.Spinner;
 import android.widget.Toast;
 import com.example.sivartravel.R;
 import com.example.sivartravel.entidades.Departamentos;
+import com.example.sivartravel.entidades.Lugares;
 import com.example.sivartravel.entidades.Municipios;
+import com.example.sivartravel.entidades.Usuarios;
 import com.example.sivartravel.restservice.RetrofitClient;
 import com.example.sivartravel.restservice.ServicioApi;
 
@@ -37,10 +40,19 @@ public class AdministrarLugares extends Fragment
     private EditText EdtNombreLugar, EdtLocationLugar, EdtDescripcionLugar, URLimage;
 
     private Spinner SpinDepartamentos, SpinMunicipio;
-    String StringDepa;
+    ArrayList<String> AllDp;
+    ArrayList<String> AllMun;
+    int idDep = 0;
+    int idMuni = 0;
+    String Municipio = "";
+    String Departamentos = "";
 
-    ArrayList<Departamentos> AllDp = new ArrayList<>();
-    ArrayList<Municipios> AllMun = new ArrayList<>();
+    Departamentos DepartObject = new Departamentos();
+    Municipios MunObject = new Municipios();
+    Usuarios UserObject = new Usuarios();
+
+    ServicioApi srv = RetrofitClient.getSOService();
+
 
     public AdministrarLugares() { }
 
@@ -58,13 +70,119 @@ public class AdministrarLugares extends Fragment
         SpinDepartamentos = view.findViewById(R.id.SpinDepartamentos);
         SpinMunicipio = view.findViewById(R.id.SpinMunicipio);
 
+        CargarDatosSpinners();
+
+        SpinDepartamentos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            {
+                idDep = position + 1;
+                Departamentos = SpinDepartamentos.getSelectedItem().toString();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) { }
+        });
+
+        SpinMunicipio.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            {
+                idMuni = position + 1;
+                Municipio = SpinMunicipio.getSelectedItem().toString();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) { }
+        });
+
+
+        BtnGuardarLugar.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                if(Comprobar())
+                {
+                    SetData();
+
+                    Lugares lugares = new Lugares(EdtNombreLugar.getText().toString(), URLimage.getText().toString(), EdtDescripcionLugar.getText().toString(), EdtLocationLugar.getText().toString(), MunObject, UserObject);
+
+                    Call<Lugares> AgregarL = srv.setLugares(lugares);
+
+                    AgregarL.enqueue(new Callback<Lugares>() {
+                        @Override
+                        public void onResponse(Call<Lugares> call, Response<Lugares> response)
+                        {
+                            if(response.code() == 200)
+                            {
+                                Toast.makeText(view.getContext().getApplicationContext(), "Lugar agregado satisactoriamente" , Toast.LENGTH_SHORT).show();
+                            }
+                            else
+                            {
+                                Toast.makeText(view.getContext().getApplicationContext(), "¡Algo fallo!" , Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                        @Override
+                        public void onFailure(Call<Lugares> call, Throwable t)
+                        {
+                            Toast.makeText(view.getContext().getApplicationContext(), "¡Algo fallo! " +t.getMessage() , Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+                else
+                {
+                    Toast.makeText(getActivity().getApplicationContext(), "Ingrese los datos e imagenes requeridas" , Toast.LENGTH_LONG).show();
+                }
+
+
+            }
+        });
+
+        BtnListaLugar.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                /* Aqui va la actividad que carga la lista de lugares en MODO ADMIN
+                Intent OpenList = new Intent(AdministrarLugares.this, );
+                startActivity(OpenList);*/
+            }
+        });
+    }
+
+    public void CargarDatosUsuario()
+    {
+        Call<List<com.example.sivartravel.entidades.Usuarios>> Usr = srv.getUsers();
+
+        try
+        {
+            Usr.enqueue(new Callback<List<Usuarios>>()
+            {
+                @Override
+                public void onResponse(Call<List<Usuarios>> call, Response<List<Usuarios>> response)
+                {
+
+                }
+                @Override
+                public void onFailure(Call<List<Usuarios>> call, Throwable t)
+                {
+
+                }
+            });
+        }
+        catch (Exception e) { e.printStackTrace(); }
+
+    }
+
+    public void CargarDatosSpinners()
+    {
+
         if (android.os.Build.VERSION.SDK_INT > 9)
         {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
-
-        ServicioApi srv = RetrofitClient.getSOService();
 
         Call<List<com.example.sivartravel.entidades.Departamentos>> Dep = srv.getDepartamentos();
 
@@ -79,16 +197,9 @@ public class AdministrarLugares extends Fragment
 
                     List<Departamentos> Dp = response.body();
 
-                    Log.i("Lo1" , "TEST");
-                    Log.i("Lo2" , response.body().toString());
+                    ObtenerDepartamentos(Dp);
 
-                    for(Departamentos Depart : Dp)
-                    {
-                        AllDp.add(new Departamentos(Depart.getDepartamentos()));
-                        EdtDescripcionLugar.setText(Depart.getDepartamentos());
-                    }
-
-                    ArrayAdapter<Departamentos> Adapter = new ArrayAdapter<>(getActivity().getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, AllDp);
+                    ArrayAdapter<String> Adapter = new ArrayAdapter<>(getActivity().getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, AllDp);
                     SpinDepartamentos.setAdapter(Adapter);
                 }
                 @Override
@@ -99,68 +210,31 @@ public class AdministrarLugares extends Fragment
 
         Call<List<com.example.sivartravel.entidades.Municipios>> Mun = srv.getMunicipios();
 
-        Mun.enqueue(new Callback<List<com.example.sivartravel.entidades.Municipios>>()
+        try
         {
-            @Override
-            public void onResponse(Call<List<Municipios>> call, Response<List<Municipios>> response)
+            Mun.enqueue(new Callback<List<com.example.sivartravel.entidades.Municipios>>()
             {
-                if(!response.isSuccessful()){Toast.makeText(getActivity().getApplicationContext(), "ERROR "+response.code(), Toast.LENGTH_SHORT).show(); return;}
-
-                List<Municipios> Muni = response.body();
-
-                for(Municipios M1: Muni)
+                @Override
+                public void onResponse(Call<List<Municipios>> call, Response<List<Municipios>> response)
                 {
-                    AllMun.add(new Municipios(M1.getMunicipio()));
+                    if(!response.isSuccessful()){Toast.makeText(getActivity().getApplicationContext(), "ERROR "+response.code(), Toast.LENGTH_SHORT).show(); return;}
+
+                    List<Municipios> Muni = response.body();
+
+                    ObtenerMunicipios(Muni);
+
+                    ArrayAdapter<String> Adapter2 = new ArrayAdapter<>(getActivity().getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, AllMun);
+                    SpinMunicipio.setAdapter(Adapter2);
                 }
-
-                ArrayAdapter<Municipios> MuniAdapter = new ArrayAdapter<>(getActivity().getApplicationContext(), android.R.layout.simple_spinner_dropdown_item , AllMun);
-                SpinMunicipio.setAdapter(MuniAdapter);
-            }
-
-            @Override
-            public void onFailure(Call<List<Municipios>> call, Throwable t) { }
-        });
-
-        SpinDepartamentos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-        {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
-            {
-                StringDepa = parent.getItemAtPosition(position).toString();
-                EdtDescripcionLugar.setText(StringDepa);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent)
-            {
-
-            }
-        });
-
-
-        BtnGuardarLugar.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v
-            )
-            {
-                Comprobar();
-            }
-        });
-
-        BtnListaLugar.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                /*
-                Intent OpenList = new Intent(AdministrarLugares.this, );
-                startActivity(OpenList);*/
-            }
-        });
+                @Override
+                public void onFailure(Call<List<Municipios>> call, Throwable t) { }
+            });
+        }
+        catch (Exception e){ e.printStackTrace();};
     }
 
-    //Comprobar que se haya seleccionado algo
+
+    //Metodos propios
 
     public boolean Comprobar()
     {
@@ -170,9 +244,50 @@ public class AdministrarLugares extends Fragment
         }
         else
         {
-            Toast.makeText(getActivity().getApplicationContext(), "Ingrese los datos e imagenes requeridas" , Toast.LENGTH_LONG).show();
             return false;
         }
+    }
+
+    public ArrayList<String> ObtenerDepartamentos(List<Departamentos> List1)
+    {
+        AllDp = new ArrayList<>();
+
+        for(Departamentos dp1 : List1)
+        {
+            AllDp.add(dp1.getDepartamentos());
+        }
+
+        return AllDp;
+    }
+
+    public  ArrayList<String> ObtenerMunicipios(List<Municipios> List2)
+    {
+        AllMun = new ArrayList<>();
+
+        for(Municipios mun1 : List2)
+        {
+            AllMun.add(mun1.getMunicipio());
+        }
+
+        return  AllMun;
+    }
+
+    public void SetData()
+    {
+        DepartObject.setIdDepartamentos(idDep);
+        DepartObject.setDepartamentos(Departamentos);
+        MunObject.setIdMunicipio(idMuni);
+        MunObject.setMunicipio(Municipio);
+        MunObject.setIdDepartamentos(DepartObject);
+        UserObject.setIdUsuario(1);
+        UserObject.setNombre("Douglas Isaias");
+        UserObject.setApellido("Valle Ortíz");
+        UserObject.setCorreo("2516122016@mail.utec.edu.sv");
+        UserObject.setClave("admin");
+        UserObject.setTipo("1");
+        UserObject.setEstado(1);
+
+        Toast.makeText(getContext().getApplicationContext() , "Selected: " +Municipio , Toast.LENGTH_SHORT).show();
     }
 
     //Otros metodos del fragment que no se usarán
