@@ -1,14 +1,24 @@
 package com.example.sivartravel.admin;
 
+import android.app.DatePickerDialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.example.sivartravel.R;
 import com.example.sivartravel.entidades.Lugares;
@@ -17,8 +27,14 @@ import com.example.sivartravel.restservice.RetrofitClient;
 import com.example.sivartravel.restservice.ServicioApi;
 import com.example.sivartravel.restservice.TransporteApo;
 import com.example.sivartravel.util.JsonUtil;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -27,54 +43,20 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link AdministrarUbicacion#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class AdministrarUbicacion extends Fragment {
 
     TextView txtDatosI;
+    Button btnListaUbicacion,btnGuardarUbicacion,btnFecha;
+    EditText EdtTransporte,EdtDestino,EdtFecha,EdtHoraSalida,EdtHoraRegreso,EdtCosto,EdtTelefono;
+    private int dia, mes, anio, hora, minutos;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     public AdministrarUbicacion() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment AdministrarUbicacion.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static AdministrarUbicacion newInstance(String param1, String param2) {
-        AdministrarUbicacion fragment = new AdministrarUbicacion();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -83,15 +65,122 @@ public class AdministrarUbicacion extends Fragment {
         View root= inflater.inflate(R.layout.fragment_administrar_ubicacion, container, false);
 
 
-
-
-
-        txtDatosI= root.findViewById(R.id.txtDatosI);
-
-        ObtenerTransportes();
         return root;
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        txtDatosI= view.findViewById(R.id.txtDatosI);
+        btnListaUbicacion=view.findViewById(R.id.btnListaUbicacion);
+        btnGuardarUbicacion=view.findViewById(R.id.btnGuardarUbicacion);
+        btnFecha=view.findViewById(R.id.btnFecha);
+
+        EdtTransporte=view.findViewById(R.id.EdtTransporte);
+        EdtDestino=view.findViewById(R.id.EdtDestino); //Borrar!
+        EdtFecha=view.findViewById(R.id.EdtFecha);
+        EdtHoraSalida=view.findViewById(R.id.EdtHoraSalida);
+        EdtHoraRegreso=view.findViewById(R.id.EdtHoraRegreso);
+        EdtCosto=view.findViewById(R.id.EdtCosto);
+        EdtTelefono=view.findViewById(R.id.EdtTelefono);
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+
+        btnFecha.setOnClickListener(this::AbrirC);
+
+        btnGuardarUbicacion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AgregarTransporte();
+            }
+
+
+        });
+
+
+
+        btnListaUbicacion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Navigation.findNavController(v).navigate(R.id.listadoDestinos);
+
+            }
+        });
+
+
+       // ObtenerTransportes();
+
+
+    }
+
+    public void AbrirC(View view) {
+        final Calendar c=Calendar.getInstance();
+        dia=c.get(Calendar.DAY_OF_MONTH);
+        mes=c.get(Calendar.MONTH);
+        anio=c.get(Calendar.YEAR);
+
+        DatePickerDialog dpd=new DatePickerDialog(getContext(), R.style.DialogTheme,new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+
+                EdtFecha.setText(dayOfMonth + "/0" + (month+1) + "/" + year);
+            }
+        }, 2021,mes,dia);
+
+        dpd.show();
+
+    }
+
+    public void AgregarTransporte() {
+        Transporte t=new Transporte();
+        Lugares l=new Lugares();
+        l.setIdLugares(1);
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        t.setNombre(EdtTransporte.getText().toString());
+        try {
+            t.setFecha(formatter.parse(EdtFecha.getText().toString()));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        t.setHoraSalida(EdtHoraSalida.getText().toString());
+        t.setHoraRegreso(EdtHoraRegreso.getText().toString());
+        t.setCosto(EdtCosto.getText().toString());
+        t.setTelefono(EdtTelefono.getText().toString());
+        t.setIdUsuario(1);
+
+        t.setIdLugares(l);
+
+        TransporteApo service = RetrofitClient.getSOTransporte();
+            Call<Transporte> repos = service.addTransporte(t);
+
+            repos.enqueue(new Callback<Transporte>() {
+                @Override
+                public void onResponse(Call<Transporte> call, Response<Transporte> response) {
+                    if (response.code()==200) {
+                        Toast.makeText(getContext(),"Registro Agregado satisfactoriamente",
+                                Toast.LENGTH_LONG ).show();
+
+                    } else
+                    {
+                        Toast.makeText(getContext(),"Error : " + response.code(),
+                                Toast.LENGTH_LONG ).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Transporte> call, Throwable ti) {
+                    System.out.println("No se pudo: "+ti.getMessage());
+                    System.out.println(ti.getStackTrace());
+                    System.out.println(ti.getCause());
+                    for (StackTraceElement e:ti.getStackTrace()){
+                        System.out.println(e.toString());
+                    }
+                }
+            });
+
+    }
 
     private void ObtenerTransportes() {
 
@@ -105,7 +194,7 @@ public class AdministrarUbicacion extends Fragment {
                     List<Transporte> Lista = response.body();
                     System.out.println("SI se pudo"+Lista.size());
                     for (Transporte t : Lista){
-                        txtDatosI.setText(String.valueOf(t.getIdTransporte()));
+                     //   txtDatosI.setText(String.valueOf(t.getIdTransporte()));
                         System.out.println(""+t.getIdTransporte());
                     }
                 }
@@ -124,11 +213,6 @@ public class AdministrarUbicacion extends Fragment {
         catch (Exception e){
             e.printStackTrace();
         }
-
-
-
-
-
 
     }
 }

@@ -2,6 +2,7 @@ package com.example.sivartravel.restservice;
 
 import com.example.sivartravel.Constantes;
 import com.example.sivartravel.entidades.Lugares;
+import com.example.sivartravel.entidades.Transporte;
 import com.example.sivartravel.Constantes;
 
 import retrofit2.Retrofit;
@@ -23,5 +24,9 @@ public class RetrofitClient {
 
     public static ServicioApi getSOService() {
         return RetrofitClient.getClient(Constantes.BASE_URL).create(ServicioApi.class);
+    }
+
+    public static TransporteApo getSOTransporte() {
+        return RetrofitClient.getClient(Constantes.BASE_URL).create(TransporteApo.class);
     }
 }
