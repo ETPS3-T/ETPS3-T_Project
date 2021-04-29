@@ -1,0 +1,372 @@
+Index: app/src/main/java/com/example/sivartravel/admin/ListadoDestinos.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.sivartravel.admin;\r\n\r\nimport android.os.Bundle;\r\nimport android.view.LayoutInflater;\r\nimport android.view.View;\r\nimport android.view.ViewGroup;\r\n\r\nimport androidx.fragment.app.Fragment;\r\n\r\nimport com.example.sivartravel.R;\r\n\r\n/**\r\n * A simple {@link Fragment} subclass.\r\n * Use the {@link ListadoDestinos#newInstance} factory method to\r\n * create an instance of this fragment.\r\n */\r\npublic class ListadoDestinos extends Fragment {\r\n\r\n    // TODO: Rename parameter arguments, choose names that match\r\n    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER\r\n    private static final String ARG_PARAM1 = \"param1\";\r\n    private static final String ARG_PARAM2 = \"param2\";\r\n\r\n    // TODO: Rename and change types of parameters\r\n    private String mParam1;\r\n    private String mParam2;\r\n\r\n    public ListadoDestinos() {\r\n        // Required empty public constructor\r\n    }\r\n\r\n    /**\r\n     * Use this factory method to create a new instance of\r\n     * this fragment using the provided parameters.\r\n     *\r\n     * @param param1 Parameter 1.\r\n     * @param param2 Parameter 2.\r\n     * @return A new instance of fragment ListadoDestinos.\r\n     */\r\n    // TODO: Rename and change types and number of parameters\r\n    public static ListadoDestinos newInstance(String param1, String param2) {\r\n        ListadoDestinos fragment = new ListadoDestinos();\r\n        Bundle args = new Bundle();\r\n        args.putString(ARG_PARAM1, param1);\r\n        args.putString(ARG_PARAM2, param2);\r\n        fragment.setArguments(args);\r\n        return fragment;\r\n    }\r\n\r\n    @Override\r\n    public void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        if (getArguments() != null) {\r\n            mParam1 = getArguments().getString(ARG_PARAM1);\r\n            mParam2 = getArguments().getString(ARG_PARAM2);\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public View onCreateView(LayoutInflater inflater, ViewGroup container,\r\n                             Bundle savedInstanceState) {\r\n        // Inflate the layout for this fragment\r\n        return inflater.inflate(R.layout.fragment_listado_destinos, container, false);\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/sivartravel/admin/ListadoDestinos.java	(revision 4db16c35066d62e92f185a8c256411ae6d0b6143)
++++ app/src/main/java/com/example/sivartravel/admin/ListadoDestinos.java	(date 1619220706214)
+@@ -5,10 +5,15 @@
+ import android.view.View;
+ import android.view.ViewGroup;
+ 
++import androidx.annotation.NonNull;
++import androidx.annotation.Nullable;
+ import androidx.fragment.app.Fragment;
+ 
+ import com.example.sivartravel.R;
+ 
++import java.util.ArrayList;
++import java.util.List;
++
+ /**
+  * A simple {@link Fragment} subclass.
+  * Use the {@link ListadoDestinos#newInstance} factory method to
+@@ -16,6 +21,8 @@
+  */
+ public class ListadoDestinos extends Fragment {
+ 
++
++
+     // TODO: Rename parameter arguments, choose names that match
+     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+     private static final String ARG_PARAM1 = "param1";
+@@ -62,4 +69,10 @@
+         // Inflate the layout for this fragment
+         return inflater.inflate(R.layout.fragment_listado_destinos, container, false);
+     }
++
++    @Override
++    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
++        super.onViewCreated(view, savedInstanceState);
++
++    }
+ }
+\ No newline at end of file
+Index: app/src/main/java/com/example/sivartravel/entidades/Transporte.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.sivartravel.entidades;\r\n\r\nimport com.google.gson.annotations.Expose;\r\nimport com.google.gson.annotations.SerializedName;\r\n\r\nimport java.util.Date;\r\n\r\npublic class Transporte {\r\n    @SerializedName(\"idDepartamentos\")\r\n    @Expose\r\n    private Integer idTransporte;\r\n\r\n    @SerializedName(\"idDepartamentos\")\r\n    @Expose\r\n    private String nombre;\r\n\r\n    @SerializedName(\"idDepartamentos\")\r\n    @Expose\r\n    private Date fecha;\r\n\r\n    @SerializedName(\"idDepartamentos\")\r\n    @Expose\r\n    private Date horaSalida;\r\n\r\n    @SerializedName(\"idDepartamentos\")\r\n    @Expose\r\n    private Date horaRegreso;\r\n\r\n    @SerializedName(\"idDepartamentos\")\r\n    @Expose\r\n    private String costo;\r\n    @SerializedName(\"idDepartamentos\")\r\n    @Expose\r\n    private String telefono;\r\n    @SerializedName(\"idDepartamentos\")\r\n    @Expose\r\n    private Integer idUsuario;\r\n    @SerializedName(\"idDepartamentos\")\r\n    @Expose\r\n    private Lugares idLugares;\r\n\r\n    public Transporte() {\r\n    }\r\n\r\n    public Transporte(Integer idTransporte) {\r\n        this.idTransporte = idTransporte;\r\n    }\r\n\r\n    public Integer getIdTransporte() {\r\n        return idTransporte;\r\n    }\r\n\r\n    public void setIdTransporte(Integer idTransporte) {\r\n        this.idTransporte = idTransporte;\r\n    }\r\n\r\n    public String getNombre() {\r\n        return nombre;\r\n    }\r\n\r\n    public void setNombre(String nombre) {\r\n        this.nombre = nombre;\r\n    }\r\n\r\n    public Date getFecha() {\r\n        return fecha;\r\n    }\r\n\r\n    public void setFecha(Date fecha) {\r\n        this.fecha = fecha;\r\n    }\r\n\r\n    public Date getHoraSalida() {\r\n        return horaSalida;\r\n    }\r\n\r\n    public void setHoraSalida(Date horaSalida) {\r\n        this.horaSalida = horaSalida;\r\n    }\r\n\r\n    public Date getHoraRegreso() {\r\n        return horaRegreso;\r\n    }\r\n\r\n    public void setHoraRegreso(Date horaRegreso) {\r\n        this.horaRegreso = horaRegreso;\r\n    }\r\n\r\n    public String getCosto() {\r\n        return costo;\r\n    }\r\n\r\n    public void setCosto(String costo) {\r\n        this.costo = costo;\r\n    }\r\n\r\n    public String getTelefono() {\r\n        return telefono;\r\n    }\r\n\r\n    public void setTelefono(String telefono) {\r\n        this.telefono = telefono;\r\n    }\r\n\r\n    public Integer getIdUsuario() {\r\n        return idUsuario;\r\n    }\r\n\r\n    public void setIdUsuario(Integer idUsuario) {\r\n        this.idUsuario = idUsuario;\r\n    }\r\n\r\n    public Lugares getIdLugares() {\r\n        return idLugares;\r\n    }\r\n\r\n    public void setIdLugares(Lugares idLugares) {\r\n        this.idLugares = idLugares;\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/sivartravel/entidades/Transporte.java	(revision 4db16c35066d62e92f185a8c256411ae6d0b6143)
++++ app/src/main/java/com/example/sivartravel/entidades/Transporte.java	(date 1619217100636)
+@@ -3,45 +3,47 @@
+ import com.google.gson.annotations.Expose;
+ import com.google.gson.annotations.SerializedName;
+ 
++import java.sql.Time;
+ import java.util.Date;
+ 
+ public class Transporte {
+-    @SerializedName("idDepartamentos")
++    @SerializedName("idTransporte")
+     @Expose
+     private Integer idTransporte;
+ 
+-    @SerializedName("idDepartamentos")
++    @SerializedName("nombre")
+     @Expose
+     private String nombre;
+ 
+-    @SerializedName("idDepartamentos")
++    @SerializedName("fecha")
+     @Expose
+     private Date fecha;
+ 
+-    @SerializedName("idDepartamentos")
++    @SerializedName("horaSalida")
+     @Expose
+-    private Date horaSalida;
++    private String horaSalida;
+ 
+-    @SerializedName("idDepartamentos")
++    @SerializedName("horaRegreso")
+     @Expose
+-    private Date horaRegreso;
++    private String horaRegreso;
+ 
+-    @SerializedName("idDepartamentos")
++    @SerializedName("costo")
+     @Expose
+     private String costo;
+-    @SerializedName("idDepartamentos")
++    @SerializedName("telefono")
+     @Expose
+     private String telefono;
+-    @SerializedName("idDepartamentos")
++    @SerializedName("idUsuario")
+     @Expose
+     private Integer idUsuario;
+-    @SerializedName("idDepartamentos")
++    @SerializedName("idLugares")
+     @Expose
+     private Lugares idLugares;
+ 
+     public Transporte() {
+     }
+ 
++
+     public Transporte(Integer idTransporte) {
+         this.idTransporte = idTransporte;
+     }
+@@ -70,19 +72,19 @@
+         this.fecha = fecha;
+     }
+ 
+-    public Date getHoraSalida() {
++    public String getHoraSalida() {
+         return horaSalida;
+     }
+ 
+-    public void setHoraSalida(Date horaSalida) {
++    public void setHoraSalida(String horaSalida) {
+         this.horaSalida = horaSalida;
+     }
+ 
+-    public Date getHoraRegreso() {
++    public String getHoraRegreso() {
+         return horaRegreso;
+     }
+ 
+-    public void setHoraRegreso(Date horaRegreso) {
++    public void setHoraRegreso(String horaRegreso) {
+         this.horaRegreso = horaRegreso;
+     }
+ 
+@@ -118,4 +120,5 @@
+         this.idLugares = idLugares;
+     }
+ 
++
+ }
+Index: app/src/main/res/layout/contenedor_llistatrans.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/contenedor_llistatrans.xml	(date 1619215269705)
++++ app/src/main/res/layout/contenedor_llistatrans.xml	(date 1619215269705)
+@@ -0,0 +1,79 @@
++<?xml version="1.0" encoding="utf-8"?>
++<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    app:cardCornerRadius="16dp"
++    android:background="#090000"
++    android:layout_margin="8dp"
++    android:layout_height="320dp"
++    android:id="@+id/cardTransporte"
++    android:layout_width="match_parent">
++
++    <LinearLayout
++        android:padding="5dp"
++        android:orientation="vertical"
++        android:layout_width="match_parent"
++        android:layout_height="match_parent">
++
++        <TextView
++            android:id="@+id/tvIdtransporte"
++            android:textSize="25sp"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"/>
++
++        <TextView
++            android:id="@+id/tvNombre"
++            android:textSize="25sp"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"/>
++
++        <TextView
++            android:id="@+id/tvFecha"
++            android:textSize="25sp"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"/>
++
++        <TextView
++            android:id="@+id/tvHoraSalida"
++            android:textSize="25sp"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"/>
++
++        <TextView
++            android:id="@+id/tvHoraRegreso"
++            android:textSize="25sp"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"/>
++
++        <TextView
++            android:id="@+id/tvCosto"
++            android:textSize="25sp"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"/>
++
++        <TextView
++            android:id="@+id/tvTelefono"
++            android:textSize="25sp"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"/>
++
++        <TextView
++            android:id="@+id/tvidUsuario"
++            android:textSize="25sp"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"/>
++
++
++        <TextView
++            android:id="@+id/tvidLugares"
++            android:textSize="25sp"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"/>
++
++
++
++
++    </LinearLayout>
++
++
++
++</androidx.cardview.widget.CardView>
+\ No newline at end of file
+Index: app/src/main/java/com/example/sivartravel/admin/TransporteAdapter.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/sivartravel/admin/TransporteAdapter.java	(date 1619560578406)
++++ app/src/main/java/com/example/sivartravel/admin/TransporteAdapter.java	(date 1619560578406)
+@@ -0,0 +1,42 @@
++package com.example.sivartravel.admin;
++
++import android.content.Context;
++import android.content.DialogInterface;
++import android.content.Intent;
++import android.view.LayoutInflater;
++import android.view.View;
++import android.view.ViewGroup;
++import android.widget.ArrayAdapter;
++import android.widget.Toast;
++
++import androidx.annotation.NonNull;
++import androidx.annotation.Nullable;
++import androidx.appcompat.app.AlertDialog;
++import androidx.recyclerview.widget.RecyclerView;
++
++import com.example.sivartravel.R;
++import com.example.sivartravel.entidades.Transporte;
++
++import java.util.List;
++
++import retrofit2.Call;
++import retrofit2.Callback;
++import retrofit2.Response;
++
++public class TransporteAdapter extends ArrayAdapter<Transporte> {
++
++    private Context context;
++    private List<Transporte> transporte;
++
++    public TransporteAdapter(@NonNull Context context, int resource, int textViewResourceId, @NonNull List<Transporte> objects) {
++        super(context, resource, textViewResourceId, objects);
++        this.context=context;
++        this.transporte=objects;
++    }
++
++
++
++
++
++
++}
+Index: app/src/main/java/com/example/sivartravel/restservice/RetrofitClient.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.sivartravel.restservice;\r\n\r\nimport com.example.sivartravel.Constantes;\r\nimport com.example.sivartravel.entidades.Lugares;\r\nimport com.example.sivartravel.Constantes;\r\n\r\nimport retrofit2.Retrofit;\r\nimport retrofit2.converter.gson.GsonConverterFactory;\r\n\r\npublic class RetrofitClient {\r\n\r\n    private static Retrofit retrofit = null;\r\n\r\n    public static Retrofit getClient(String baseUrl) {\r\n        if (retrofit==null) {\r\n            retrofit = new Retrofit.Builder()\r\n                    .baseUrl(baseUrl)\r\n                    .addConverterFactory(GsonConverterFactory.create())\r\n                    .build();\r\n        }\r\n        return retrofit;\r\n    }\r\n\r\n    public static ServicioApi getSOService() {\r\n        return RetrofitClient.getClient(Constantes.BASE_URL).create(ServicioApi.class);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/sivartravel/restservice/RetrofitClient.java	(revision 4db16c35066d62e92f185a8c256411ae6d0b6143)
++++ app/src/main/java/com/example/sivartravel/restservice/RetrofitClient.java	(date 1619203647692)
+@@ -2,6 +2,7 @@
+ 
+ import com.example.sivartravel.Constantes;
+ import com.example.sivartravel.entidades.Lugares;
++import com.example.sivartravel.entidades.Transporte;
+ import com.example.sivartravel.Constantes;
+ 
+ import retrofit2.Retrofit;
+@@ -24,4 +25,8 @@
+     public static ServicioApi getSOService() {
+         return RetrofitClient.getClient(Constantes.BASE_URL).create(ServicioApi.class);
+     }
++
++    public static TransporteApo getSOTransporte() {
++        return RetrofitClient.getClient(Constantes.BASE_URL).create(TransporteApo.class);
++    }
+ }
+Index: app/src/main/res/layout/fragment_administrar_ubicacion.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:orientation=\"vertical\"\r\n    android:background=\"#091B2D\"\r\n    android:padding=\"8dp\"\r\n    tools:context=\".admin.AdministrarUbicacion\">\r\n\r\n\r\n    <TextView\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_margin=\"4dp\"\r\n        android:gravity=\"center\"\r\n        android:text=\"Destinos a ingresar\"\r\n        android:textColor=\"@color/white\"\r\n        android:textSize=\"20sp\" />\r\n\r\n    <LinearLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:orientation=\"horizontal\"\r\n        android:layout_margin=\"4dp\">\r\n\r\n        <TextView\r\n            android:id=\"@+id/textView10\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_weight=\"5\"\r\n            android:text=\"Transporte:\"\r\n            android:textColor=\"@color/white\"\r\n            android:textSize=\"16sp\" />\r\n\r\n        <EditText\r\n            android:id=\"@+id/EdtTransporte\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_weight=\"2\"\r\n            android:ems=\"10\"\r\n            android:hint=\"Ingrese transporte\"\r\n            android:inputType=\"textPersonName\"\r\n            android:textColor=\"@color/white\"\r\n            android:textColorHint=\"@color/white\" />\r\n    </LinearLayout>\r\n\r\n    <LinearLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:orientation=\"horizontal\"\r\n        android:layout_marginTop=\"4dp\">\r\n        <TextView\r\n            android:id=\"@+id/textView15\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_weight=\"5\"\r\n            android:text=\"Destino:\"\r\n            android:textColor=\"@color/white\"\r\n            android:textSize=\"16sp\" />\r\n\r\n        <EditText\r\n            android:id=\"@+id/EdtDestino\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_weight=\"2\"\r\n            android:ems=\"10\"\r\n            android:hint=\"Ingrese destino\"\r\n            android:inputType=\"textPersonName\"\r\n            android:textColor=\"@color/white\"\r\n            android:textColorHint=\"@color/white\" />\r\n    </LinearLayout>\r\n\r\n    <LinearLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:orientation=\"horizontal\"\r\n        android:layout_marginTop=\"4dp\">\r\n\r\n        <TextView\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_weight=\"1\"\r\n            android:text=\"Lugar de Salida:\"\r\n            android:textColor=\"@color/white\"\r\n            android:textSize=\"16sp\" />\r\n\r\n        <EditText\r\n            android:id=\"@+id/EdtLugarSalida\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_weight=\"1\"\r\n            android:ems=\"10\"\r\n            android:hint=\"Ingrese Lugar\"\r\n            android:inputType=\"textPersonName\"\r\n            android:textColor=\"@color/white\"\r\n            android:textColorHint=\"@color/white\" />\r\n    </LinearLayout>\r\n\r\n    <LinearLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:orientation=\"horizontal\"\r\n        android:layout_marginTop=\"4dp\">\r\n\r\n        <TextView\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_weight=\"1\"\r\n            android:text=\"Lugar de Salida:\"\r\n            android:textColor=\"@color/white\"\r\n            android:textSize=\"16sp\" />\r\n\r\n        <EditText\r\n            android:id=\"@+id/EdtHoraSalida\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_weight=\"1\"\r\n            android:ems=\"10\"\r\n            android:hint=\"Ingrese hora \"\r\n            android:inputType=\"textPersonName\"\r\n            android:textColor=\"@color/white\"\r\n            android:textColorHint=\"@color/white\" />\r\n    </LinearLayout>\r\n\r\n\r\n\r\n        <Button\r\n            android:id=\"@+id/btnGuardarUbicacion\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:backgroundTint=\"@color/teal_700\"\r\n            android:text=\"Guardar\"\r\n            android:textColor=\"#FFFFFF\" />\r\n\r\n        <Button\r\n            android:id=\"@+id/btnListaUbicacion\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:backgroundTint=\"@color/teal_700\"\r\n            android:text=\"Ver Listado\"\r\n            android:textColor=\"#FFFFFF\" />\r\n\r\n\r\n</LinearLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/fragment_administrar_ubicacion.xml	(revision 4db16c35066d62e92f185a8c256411ae6d0b6143)
++++ app/src/main/res/layout/fragment_administrar_ubicacion.xml	(date 1619161141893)
+@@ -10,6 +10,7 @@
+ 
+ 
+     <TextView
++        android:id="@+id/txtDatosI"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_margin="4dp"
+Index: app/src/main/java/com/example/sivartravel/restservice/TransporteApo.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/sivartravel/restservice/TransporteApo.java	(date 1619204791494)
++++ app/src/main/java/com/example/sivartravel/restservice/TransporteApo.java	(date 1619204791494)
+@@ -0,0 +1,17 @@
++package com.example.sivartravel.restservice;
++
++import com.example.sivartravel.entidades.Transporte;
++import com.example.sivartravel.entidades.Lugares;
++import java.util.List;
++import retrofit2.Call;
++import retrofit2.http.GET;
++
++public interface TransporteApo {
++
++
++    @GET("Transporte")
++    Call<List<Transporte>> getTransportes();
++
++
++
++}
+Index: app/src/main/res/layout/fragment_listado_destinos.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    tools:context=\".admin.ListadoDestinos\"\r\n    android:orientation=\"vertical\"\r\n    android:background=\"#091B2D\"\r\n    android:padding=\"8dp\"\r\n    >\r\n\r\n    <!-- TODO: Update blank fragment layout -->\r\n    <TextView\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"match_parent\"\r\n        android:text=\"@string/hello_blank_fragment\" />\r\n\r\n</LinearLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/fragment_listado_destinos.xml	(revision 4db16c35066d62e92f185a8c256411ae6d0b6143)
++++ app/src/main/res/layout/fragment_listado_destinos.xml	(date 1619214613337)
+@@ -9,10 +9,6 @@
+     android:padding="8dp"
+     >
+ 
+-    <!-- TODO: Update blank fragment layout -->
+-    <TextView
+-        android:layout_width="match_parent"
+-        android:layout_height="match_parent"
+-        android:text="@string/hello_blank_fragment" />
++   <include layout="@layout/contenedor_llistatrans"/>
+ 
+ </LinearLayout>
+\ No newline at end of file
