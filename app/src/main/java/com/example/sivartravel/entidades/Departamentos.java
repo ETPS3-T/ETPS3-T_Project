@@ -12,6 +12,10 @@ public class Departamentos {
     @Expose
     private String departamentos;
 
+    public Departamentos(String departamentos) {
+        this.departamentos = departamentos;
+    }
+
     public Departamentos() {
     }
 
