@@ -6,6 +6,9 @@
 package com.example.sivartravel.user.adaptador;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +23,12 @@ import com.example.sivartravel.user.entitys.LugaresEntity;
 import com.example.sivartravel.user.lugares.Lugares;
 import com.google.android.material.transition.Hold;
 
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.List;
 
 /**
@@ -50,7 +59,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(@NonNull RecyclerViewAdapter.ViewHolder holder, int position) {
         LugaresEntity lugar = listaLugares.get(position);
         //Aqui set a los componentes
-        holder.imagen.setImageResource(listaLugares.get(position).getImagen());
+        //holder.imagen.setImageURI(listaLugares.get(position).getImagen());
+        //holder.imagen.setImageResource(listaLugares.get(position).getImagen());
+        try {
+
+            //Uri uri = Uri.parse(listaLugares.get(position).getImagen());
+
+            //Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+            holder.imagen.setImageBitmap(getImageBitmap(listaLugares.get(position).getImagenUri()));
+            //holder.imagen.setImageURI(uri);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         holder.lugar.setText(listaLugares.get(position).getLugar());
         holder.departamento.setText(listaLugares.get(position).getDepartamento());
         System.out.println(lugar.getDepartamento());
@@ -59,6 +79,22 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public int getItemCount() {
         return listaLugares.size();
+    }
+    private Bitmap getImageBitmap(String url) {
+        Bitmap bm = null;
+        try {
+            URL aURL = new URL(url);
+            URLConnection conn = aURL.openConnection();
+            conn.connect();
+            InputStream is = conn.getInputStream();
+            BufferedInputStream bis = new BufferedInputStream(is);
+            bm = BitmapFactory.decodeStream(bis);
+            bis.close();
+            is.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return bm;
     }
 
 

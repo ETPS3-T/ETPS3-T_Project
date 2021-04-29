@@ -18,6 +18,10 @@ public class Municipios {
     public Municipios() {
     }
 
+    public Municipios(String municipio) {
+        this.municipio = municipio;
+    }
+
     public Municipios(Integer idMunicipio) {
         this.idMunicipio = idMunicipio;
     }

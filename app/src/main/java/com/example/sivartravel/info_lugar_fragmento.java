@@ -33,7 +33,8 @@ public class info_lugar_fragmento extends Fragment {
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_info_lugar_fragmento, container, false);
         carrusel = root.findViewById(R.id.carrusel);
-        int imagenes[] = {R.drawable.apaneca,
+        int imagenes[] = {R.drawable.pueblovivo,
+                          R.drawable.apaneca,
                           R.drawable.rutaflores,
                           R.drawable.suchitoto};
         tvLugar=root.findViewById(R.id.tvLugar);

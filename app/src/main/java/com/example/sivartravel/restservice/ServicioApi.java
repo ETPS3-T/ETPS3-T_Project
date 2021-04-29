@@ -2,6 +2,7 @@ package com.example.sivartravel.restservice;
 
 import com.example.sivartravel.entidades.Departamentos;
 import com.example.sivartravel.entidades.Lugares;
+import com.example.sivartravel.entidades.Municipios;
 
 import java.util.List;
 
@@ -20,4 +21,11 @@ public interface ServicioApi {
                            @Field("userId") long userId);*/
     @GET("Lugares")
     Call<List<Lugares>> getLugares();
+
+    @GET("Municipios")
+    Call<List<Municipios>> getMunicipios();
+
+    @GET("Departamentos")
+    Call<List<Departamentos>> getDepartamentos();
+
 }
