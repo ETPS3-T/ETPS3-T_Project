@@ -23,8 +23,11 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.example.sivartravel.R;
+import com.example.sivartravel.entidades.Departamentos;
 import com.example.sivartravel.entidades.Lugares;
+import com.example.sivartravel.entidades.Municipios;
 import com.example.sivartravel.entidades.Transporte;
+import com.example.sivartravel.entidades.Usuarios;
 import com.example.sivartravel.restservice.RetrofitClient;
 import com.example.sivartravel.restservice.ServicioApi;
 import com.example.sivartravel.restservice.TransporteApo;
@@ -88,7 +91,7 @@ public class AdministrarUbicacion extends Fragment {
         EdtHoraRegreso=view.findViewById(R.id.EdtHoraRegreso);
         EdtCosto=view.findViewById(R.id.EdtCosto);
         EdtTelefono=view.findViewById(R.id.EdtTelefono);
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
         txtFecha.setOnClickListener(this::AbrirC);
         txtHora.setOnClickListener(this::AbrirHora);
@@ -217,7 +220,7 @@ public class AdministrarUbicacion extends Fragment {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
-                EdtFecha.setText(dayOfMonth + "/0" + (month+1) + "/" + year);
+                EdtFecha.setText(year + "-0" + (month+1) + "-" + dayOfMonth);
             }
         }, 2021,mes,dia);
 
@@ -273,10 +276,41 @@ public class AdministrarUbicacion extends Fragment {
 
 
     public void AgregarTransporte() {
-        Transporte t=new Transporte();
+
+
         Lugares l=new Lugares();
+        Municipios MunObject = new Municipios();
+        Departamentos DepartObject = new Departamentos();
+        Usuarios UserObject = new Usuarios();
+
+        DepartObject.setIdDepartamentos(1);
+        DepartObject.setDepartamentos("La Libertad");
+
+        MunObject.setIdMunicipio(1);
+        MunObject.setIdDepartamentos(DepartObject);
+        MunObject.setMunicipio("Colon");
+
+
+        UserObject.setIdUsuario(1);
+        UserObject.setNombre("Douglas Isaias");
+        UserObject.setApellido("Valle Ortíz");
+        UserObject.setCorreo("2516122016@mail.utec.edu.sv");
+        UserObject.setClave("admin");
+        UserObject.setTipo("1");
+        UserObject.setEstado(1);
+
         l.setIdLugares(1);
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        l.setNombre("Los Chorros");
+        l.setImagen("https://i.pinimg.com/736x/37/c3/ad/37c3adaa5545c43918ae069428398365.jpg");
+        l.setDescripcion("Parque acuatico");
+        l.setLocalizacion("Carretera a los chorros");
+        l.setIdMunicipio(MunObject);
+        l.setIdUsuario(UserObject);
+
+
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+       /* t.setIdTransporte(null);
+
         t.setNombre(EdtTransporte.getText().toString());
         try {
             t.setFecha(formatter.parse(EdtFecha.getText().toString()));
@@ -287,37 +321,47 @@ public class AdministrarUbicacion extends Fragment {
         t.setHoraRegreso(EdtHoraRegreso.getText().toString());
         t.setCosto(EdtCosto.getText().toString());
         t.setTelefono(EdtTelefono.getText().toString());
-        t.setIdUsuario(1);
-
         t.setIdLugares(l);
+        t.setIdUsuario(1); */
 
-        TransporteApo service = RetrofitClient.getSOTransporte();
-            Call<Transporte> repos = service.addTransporte(t);
 
-            repos.enqueue(new Callback<Transporte>() {
-                @Override
-                public void onResponse(Call<Transporte> call, Response<Transporte> response) {
-                    if (response.code()==200) {
-                        Toast.makeText(getContext(),"Registro Agregado satisfactoriamente",
-                                Toast.LENGTH_LONG ).show();
+       try {
 
-                    } else
-                    {
-                        Toast.makeText(getContext(),"Error : " + response.code(),
-                                Toast.LENGTH_LONG ).show();
-                    }
-                }
+           //Date fech = formatter.parse(EdtFecha.getText().toString());
 
-                @Override
-                public void onFailure(Call<Transporte> call, Throwable ti) {
-                    System.out.println("No se pudo: "+ti.getMessage());
-                    System.out.println(ti.getStackTrace());
-                    System.out.println(ti.getCause());
-                    for (StackTraceElement e:ti.getStackTrace()){
-                        System.out.println(e.toString());
-                    }
-                }
-            });
+           Transporte t = new Transporte(l,EdtTransporte.getText().toString(), EdtFecha.getText().toString() , EdtHoraSalida.getText().toString(),
+                   EdtHoraRegreso.getText().toString(), EdtCosto.getText().toString(), EdtTelefono.getText().toString(), 1);
+           TransporteApo service = RetrofitClient.getSOTransporte();
+           Call<Transporte> repos = service.addTransporte(t);
+
+           repos.enqueue(new Callback<Transporte>() {
+               @Override
+               public void onResponse(Call<Transporte> call, Response<Transporte> response) {
+                   if (response.code() == 200) {
+                       Toast.makeText(getContext(), "Registro Agregado satisfactoriamente",
+                               Toast.LENGTH_LONG).show();
+
+                   } else {
+                       Toast.makeText(getContext(), "Error : " + response.code(),
+                               Toast.LENGTH_LONG).show();
+                   }
+               }
+
+               @Override
+               public void onFailure(Call<Transporte> call, Throwable ti) {
+                   System.out.println("No se pudo: " + ti.getMessage());
+                   System.out.println(ti.getStackTrace());
+                   System.out.println(ti.getCause());
+                   for (StackTraceElement e : ti.getStackTrace()) {
+                       System.out.println(e.toString());
+                   }
+               }
+           });
+
+       }
+       catch (Exception e){
+           e.printStackTrace();
+       }
 
     }
 

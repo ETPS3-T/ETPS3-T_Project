@@ -7,6 +7,20 @@ import java.sql.Time;
 import java.util.Date;
 
 public class Transporte {
+
+    public Transporte(Lugares idLugares,String nombre, String fecha, String horaSalida, String horaRegreso, String costo, String telefono, Integer idUsuario) {
+
+        this.idLugares = idLugares;
+        this.nombre = nombre;
+        this.fecha = fecha;
+        this.horaSalida = horaSalida;
+        this.horaRegreso = horaRegreso;
+        this.costo = costo;
+        this.telefono = telefono;
+        this.idUsuario = idUsuario;
+
+    }
+
     @SerializedName("idTransporte")
     @Expose
     private Integer idTransporte;
@@ -17,11 +31,12 @@ public class Transporte {
 
     @SerializedName("fecha")
     @Expose
-    private Date fecha;
+    private String fecha;
 
     @SerializedName("horaSalida")
     @Expose
     private String horaSalida;
+
 
     @SerializedName("horaRegreso")
     @Expose
@@ -64,11 +79,11 @@ public class Transporte {
         this.nombre = nombre;
     }
 
-    public Date getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 
