@@ -5,7 +5,15 @@ import com.google.gson.annotations.SerializedName;
 
 public class Lugares {
 
-
+    public Lugares(String nombre, String imagen, String descripcion, String localizacion, Municipios idMunicipio, Usuarios idUsuario)
+    {
+        this.nombre = nombre;
+        this.imagen = imagen;
+        this.descripcion = descripcion;
+        this.localizacion = localizacion;
+        this.idMunicipio = idMunicipio;
+        this.idUsuario = idUsuario;
+    }
 
     @SerializedName("idLugares")
     @Expose
