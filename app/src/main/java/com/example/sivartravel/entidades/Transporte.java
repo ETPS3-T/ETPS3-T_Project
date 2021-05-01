@@ -135,6 +135,18 @@ public class Transporte {
         this.idLugares = idLugares;
     }
 
-
-
+    @Override
+    public String toString() {
+        return "Transporte{" +
+                "idTransporte=" + idTransporte +
+                ", nombre='" + nombre + '\'' +
+                ", fecha='" + fecha + '\'' +
+                ", horaSalida='" + horaSalida + '\'' +
+                ", horaRegreso='" + horaRegreso + '\'' +
+                ", costo='" + costo + '\'' +
+                ", telefono='" + telefono + '\'' +
+                ", idUsuario=" + idUsuario +
+                ", idLugares=" + idLugares +
+                '}';
+    }
 }

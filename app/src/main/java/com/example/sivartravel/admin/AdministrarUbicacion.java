@@ -42,6 +42,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -308,11 +309,6 @@ public class AdministrarUbicacion extends Fragment {
 
     public void AgregarTransporte() {
 
-        if (android.os.Build.VERSION.SDK_INT > 9) {
-            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-            StrictMode.setThreadPolicy(policy);
-        }
-
 
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
        /* t.setIdTransporte(null);
@@ -334,13 +330,21 @@ public class AdministrarUbicacion extends Fragment {
        try {
 
            Date fech = formatter.parse(EdtFecha.getText().toString());
-
            Transporte t = new Transporte(l,EdtTransporte.getText().toString(),EdtFecha.getText().toString(), EdtHoraSalida.getText().toString(),
                    EdtHoraRegreso.getText().toString(), EdtCosto.getText().toString(), EdtTelefono.getText().toString(), 1);
            TransporteApo service = RetrofitClient.getSOTransporte();
            Call<Transporte> repos = service.addTransporte(t);
+           System.out.println(t.toString());
+           try {
+               Toast.makeText(getContext(), "Registro Agregado satisfactoriamente",
+                       Toast.LENGTH_LONG).show();
+               repos.execute();
 
-           repos.enqueue(new Callback<Transporte>() {
+           }catch (Exception e){
+
+           }
+
+           /**repos.enqueue(new Callback<Transporte>() {
                @Override
                public void onResponse(Call<Transporte> call, Response<Transporte> response) {
 
@@ -371,7 +375,7 @@ public class AdministrarUbicacion extends Fragment {
                        System.out.println(e.toString());
                    }
                }
-           });
+           });*/
 
        }
        catch (Exception e){

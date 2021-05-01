@@ -1,15 +1,18 @@
 package com.example.sivartravel;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class Login extends AppCompatActivity {
+public class Login extends AppCompatActivity{
     private EditText Usuario, Contraseña;
     private Button Aceptar, Registro;
     private String Usu, Psw;
@@ -25,6 +28,11 @@ public class Login extends AppCompatActivity {
         Aceptar = findViewById(R.id.btaceptar);
         Registro = findViewById(R.id.btnRegistar);
         DB = new DBHelper(this);
+
+        if (android.os.Build.VERSION.SDK_INT > 9) {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
 
         Registro.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,7 +51,7 @@ public class Login extends AppCompatActivity {
                     Toast.makeText(Login.this, "Please enter all the fields", Toast.LENGTH_SHORT).show();
                 else{
                     Boolean checkuserpass = DB.checkusernamepassword(user, pass);
-                    if(checkuserpass==true){
+                    if(checkuserpass){
                         Toast.makeText(Login.this, "Sign in successfull", Toast.LENGTH_SHORT).show();
                         Intent intent  = new Intent(getApplicationContext(), MenuUser.class);
                         startActivity(intent);
@@ -54,6 +62,10 @@ public class Login extends AppCompatActivity {
                         if (Usu.equals("admin")&&(Psw.equals("123"))){
                             Intent i2 = new Intent(getApplicationContext(),Administrador.class);
                             startActivity(i2);
+                        }else{
+                            Usuario.setError("Usuario o clave incorrectos.");
+
+
                         }
                     }
                 }
@@ -75,10 +87,5 @@ public class Login extends AppCompatActivity {
         });
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        Intent i = new Intent(getApplicationContext(),MainActivity.class);
-        startActivity(i);
-    }
+
 }
