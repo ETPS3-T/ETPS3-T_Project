@@ -12,13 +12,6 @@ public class Departamentos {
     @Expose
     private String departamentos;
 
-    public Departamentos() {
-    }
-
-    public Departamentos(Integer idDepartamentos) {
-        this.idDepartamentos = idDepartamentos;
-    }
-
     public Integer getIdDepartamentos() {
         return idDepartamentos;
     }
