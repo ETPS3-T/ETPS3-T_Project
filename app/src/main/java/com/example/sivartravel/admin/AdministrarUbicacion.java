@@ -124,7 +124,7 @@ public class AdministrarUbicacion extends Fragment {
         l.setNombre("El Imposible");
         l.setImagen("https://i.pinimg.com/736x/37/c3/ad/37c3adaa5545c43918ae069428398365.jpg");
         l.setDescripcion("El Parque Nacional El Imposible es un parque nacional en El Salvador. Fue creado el 1 de enero de 1989 y cubre un área de 5,000 hectáreas. Esta área natural protegida es considerada la reliquia natural más importante del país por ser un ecosistema amenazado a nivel mundial (bosque tropical seco y tropical seco premontano), pero también por ser uno de los últimos refugios para una comunidad increíblemente diversa de vida silvestre, fuente de recursos hídricos para la zona y poseedor de belleza es");
-        l.setLocalizacion("x= 13.8332149, y= -89.9368555");
+       // l.setLocalizacion("x= 13.8332149, y= -89.9368555");
         l.setIdMunicipio(MunObject);
         l.setIdUsuario(UserObject);
 
