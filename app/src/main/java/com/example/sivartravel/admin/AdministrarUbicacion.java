@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,6 +57,11 @@ public class AdministrarUbicacion extends Fragment {
     EditText EdtTransporte,EdtDestino,EdtFecha,EdtHoraSalida,EdtHoraRegreso,EdtCosto,EdtTelefono;
     private int dia, mes, anio, hora, minutos;
 
+    Municipios MunObject = new Municipios();
+    Departamentos DepartObject = new Departamentos();
+    Usuarios UserObject = new Usuarios();
+    Lugares l=new Lugares();
+
 
 
     public AdministrarUbicacion() {
@@ -96,6 +102,31 @@ public class AdministrarUbicacion extends Fragment {
         txtFecha.setOnClickListener(this::AbrirC);
         txtHora.setOnClickListener(this::AbrirHora);
         txtHora1.setOnClickListener(this::AbrirHora1);
+
+
+        DepartObject.setIdDepartamentos(4);
+        DepartObject.setDepartamentos("Ahuachapán");
+
+        MunObject.setIdMunicipio(6);
+        MunObject.setIdDepartamentos(DepartObject);
+        MunObject.setMunicipio("San Francisco Menendez");
+
+
+        UserObject.setIdUsuario(1);
+        UserObject.setNombre("Douglas Isaias");
+        UserObject.setApellido("Valle Ortíz");
+        UserObject.setCorreo("2516122016@mail.utec.edu.sv");
+        UserObject.setClave("admin");
+        UserObject.setTipo("1");
+        UserObject.setEstado(1);
+
+        l.setIdLugares(1);
+        l.setNombre("El Imposible");
+        l.setImagen("https://i.pinimg.com/736x/37/c3/ad/37c3adaa5545c43918ae069428398365.jpg");
+        l.setDescripcion("El Parque Nacional El Imposible es un parque nacional en El Salvador. Fue creado el 1 de enero de 1989 y cubre un área de 5,000 hectáreas. Esta área natural protegida es considerada la reliquia natural más importante del país por ser un ecosistema amenazado a nivel mundial (bosque tropical seco y tropical seco premontano), pero también por ser uno de los últimos refugios para una comunidad increíblemente diversa de vida silvestre, fuente de recursos hídricos para la zona y poseedor de belleza es");
+        l.setLocalizacion("x= 13.8332149, y= -89.9368555");
+        l.setIdMunicipio(MunObject);
+        l.setIdUsuario(UserObject);
 
         btnGuardarUbicacion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -277,35 +308,10 @@ public class AdministrarUbicacion extends Fragment {
 
     public void AgregarTransporte() {
 
-
-        Lugares l=new Lugares();
-        Municipios MunObject = new Municipios();
-        Departamentos DepartObject = new Departamentos();
-        Usuarios UserObject = new Usuarios();
-
-        DepartObject.setIdDepartamentos(1);
-        DepartObject.setDepartamentos("La Libertad");
-
-        MunObject.setIdMunicipio(1);
-        MunObject.setIdDepartamentos(DepartObject);
-        MunObject.setMunicipio("Colon");
-
-
-        UserObject.setIdUsuario(1);
-        UserObject.setNombre("Douglas Isaias");
-        UserObject.setApellido("Valle Ortíz");
-        UserObject.setCorreo("2516122016@mail.utec.edu.sv");
-        UserObject.setClave("admin");
-        UserObject.setTipo("1");
-        UserObject.setEstado(1);
-
-        l.setIdLugares(1);
-        l.setNombre("Los Chorros");
-        l.setImagen("https://i.pinimg.com/736x/37/c3/ad/37c3adaa5545c43918ae069428398365.jpg");
-        l.setDescripcion("Parque acuatico");
-        l.setLocalizacion("Carretera a los chorros");
-        l.setIdMunicipio(MunObject);
-        l.setIdUsuario(UserObject);
+        if (android.os.Build.VERSION.SDK_INT > 9) {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
 
 
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
@@ -327,9 +333,9 @@ public class AdministrarUbicacion extends Fragment {
 
        try {
 
-           //Date fech = formatter.parse(EdtFecha.getText().toString());
+           Date fech = formatter.parse(EdtFecha.getText().toString());
 
-           Transporte t = new Transporte(l,EdtTransporte.getText().toString(), EdtFecha.getText().toString() , EdtHoraSalida.getText().toString(),
+           Transporte t = new Transporte(l,EdtTransporte.getText().toString(),EdtFecha.getText().toString(), EdtHoraSalida.getText().toString(),
                    EdtHoraRegreso.getText().toString(), EdtCosto.getText().toString(), EdtTelefono.getText().toString(), 1);
            TransporteApo service = RetrofitClient.getSOTransporte();
            Call<Transporte> repos = service.addTransporte(t);
@@ -337,14 +343,23 @@ public class AdministrarUbicacion extends Fragment {
            repos.enqueue(new Callback<Transporte>() {
                @Override
                public void onResponse(Call<Transporte> call, Response<Transporte> response) {
-                   if (response.code() == 200) {
-                       Toast.makeText(getContext(), "Registro Agregado satisfactoriamente",
-                               Toast.LENGTH_LONG).show();
 
-                   } else {
-                       Toast.makeText(getContext(), "Error : " + response.code(),
-                               Toast.LENGTH_LONG).show();
+                   try{
+                       if (response.code() == 200) {
+                           Toast.makeText(getContext(), "Registro Agregado satisfactoriamente",
+                                   Toast.LENGTH_LONG).show();
+
+                       } else {
+                           Toast.makeText(getContext(), "Error : " + response.code(),
+                                   Toast.LENGTH_LONG).show();
+                       }
                    }
+                   catch (Exception e){
+                       e.printStackTrace();
+                       System.out.println(e.getStackTrace());
+                       System.out.println(e.getCause());
+                   }
+
                }
 
                @Override
