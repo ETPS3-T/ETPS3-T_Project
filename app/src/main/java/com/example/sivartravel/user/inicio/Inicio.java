@@ -51,6 +51,7 @@ public class Inicio extends Fragment  implements InterfaceClickListener {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
+
         ServicioApi service = RetrofitClient.getSOService();
         Call<List<com.example.sivartravel.entidades.Lugares>> repos = service.getLugares();
         try {

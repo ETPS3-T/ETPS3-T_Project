@@ -22,7 +22,7 @@
         android:layout_height="636dp" />
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/btnAtrasX"
         android:layout_width="79dp"
         android:layout_height="wrap_content"
         android:layout_gravity="right"

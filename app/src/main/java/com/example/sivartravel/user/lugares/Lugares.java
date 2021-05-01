@@ -325,10 +325,12 @@ public class Lugares extends Fragment implements OnMapReadyCallback, InterfaceCl
 
     private ArrayList<LugaresEntity> LaPaz() {
         x.clear();
+
         x.add(new LugaresEntity(R.drawable.costasol3, "Costa del Sol", "La Paz", "CENTRO TURISTICO", "", "7:00 am - 20:00 pm", "13.3436107", " -89.0151437"));
         x.add(new LugaresEntity(R.drawable.santaclara2, "Parque Regional Santa Clara", "La Paz", "CENTRO TURISTICO", "", "8:00 am - 20:00 pm", "13.4499996", " -89.1087548"));
         x.add(new LugaresEntity(R.drawable.manantialesjiboa2, "Manantiales de Jiboa", "La Paz", "CENTRO TURISTICO", "", "8:00 am - 17:00 pm", "13.4965677", " -89.0090676"));
         x.add(new LugaresEntity(R.drawable.museocasarte2, "Museo municipal y casa de arte San Pedro Masahuat", "La Paz", "MUSEO", "", "8:00 am – 16:30 pm", "13.5433236", " -89.0404215"));
+
         return x;
     }
 

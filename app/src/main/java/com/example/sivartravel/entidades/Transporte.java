@@ -6,6 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Date;
 
 public class Transporte {
+
     @SerializedName("idDepartamentos")
     @Expose
     private Integer idTransporte;
