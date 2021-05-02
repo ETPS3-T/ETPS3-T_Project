@@ -52,7 +52,7 @@ public class Inicio extends Fragment  implements InterfaceClickListener {
             StrictMode.setThreadPolicy(policy);
         }
         ServicioApi service = RetrofitClient.getSOService();
-        Call<List<com.example.sivartravel.entidades.Lugares>> repos = service.getLugares();
+        Call<List<com.example.sivartravel.entidades.Lugares>> repos = service.getLugares(4);
         try {
             repos.enqueue(new Callback<List<com.example.sivartravel.entidades.Lugares>>() {
                 @Override
@@ -116,31 +116,5 @@ public class Inicio extends Fragment  implements InterfaceClickListener {
 
             Toast.makeText(getContext(), all.get(position).getDepartamento() + " "  + all.get(position).getLugar() , Toast.LENGTH_SHORT).show();
         }
-    }
-    public List<Lugares> lugares()
-    {/**
-        ServicioApi service = RetrofitClient.getSOService();
-        Call<List<com.example.sivartravel.entidades.Lugares>> repos = service.getLugares();
-        try {
-            repos.enqueue(new Callback<List<com.example.sivartravel.entidades.Lugares>>() {
-                @Override
-                public void onResponse(Call<List<Lugares>> call, Response<List<Lugares>> response) {
-                    List<Lugares> lugaresLista = response.body();
-                    System.out.println( "1 "+response.body().size());
-                    System.out.println("2 "+lugaresLista.size());
-                    for (Lugares l : lugaresLista){
-                        respuesta.add(l);
-                        System.out.println(l.getIdMunicipio().getMunicipio());
-                    }
-
-                }
-                @Override
-                public void onFailure(Call<List<Lugares>> call, Throwable t) {
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
-        return respuesta;
     }
 }

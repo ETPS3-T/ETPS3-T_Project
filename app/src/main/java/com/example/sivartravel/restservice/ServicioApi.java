@@ -14,6 +14,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface ServicioApi {
 
@@ -37,4 +38,7 @@ public interface ServicioApi {
     @POST("Lugares")
     Call<Lugares> setLugares(@Body Lugares lugares);
 
+
+    @GET("Lugares/Max/{id}")
+    Call<List<Lugares>> getLugares(@Path("id") Integer id);
 }
