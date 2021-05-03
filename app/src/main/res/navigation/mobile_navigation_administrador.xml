@@ -55,6 +55,18 @@
         <action
             android:id="@+id/action_listadoDestinos_to_administrarUbicacion"
             app:destination="@id/administrarUbicacion" />
+        <action
+            android:id="@+id/action_listadoDestinos_to_editarTransportes"
+            app:destination="@id/editarTransportes" />
+    </fragment>
+    <fragment
+        android:id="@+id/editarTransportes"
+        android:name="com.example.sivartravel.admin.EditarTransportes"
+        android:label="Modificar Transportes"
+        tools:layout="@layout/fragment_admin_editartransportes" >
+        <action
+            android:id="@+id/action_editarTransportes_to_listadoDestinos"
+            app:destination="@id/listadoDestinos" />
     </fragment>
 
 </navigation>

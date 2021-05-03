@@ -74,6 +74,13 @@ public class TransporteAdapter extends ArrayAdapter<Transporte> {
 
         //Implementar metodo para actualizar datos
 
+        rowView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(),"SIMON",Toast.LENGTH_LONG).show();
+            }
+        });
+
         return rowView;
 
 
