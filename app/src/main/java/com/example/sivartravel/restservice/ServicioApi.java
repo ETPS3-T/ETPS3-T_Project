@@ -39,4 +39,7 @@ public interface ServicioApi {
     @POST("Lugares")
     Call<com.example.sivartravel.entidades.Lugares> setLugares(@Body com.example.sivartravel.entidades.Lugares lugares);
 
+
+    @GET("Lugares/Max/{id}")
+    Call<List<Lugares>> getLugares(@Path("id") Integer id);
 }

@@ -3,45 +3,61 @@ package com.example.sivartravel.entidades;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.sql.Time;
 import java.util.Date;
 
 public class Transporte {
 
-    @SerializedName("idDepartamentos")
+    public Transporte(Lugares idLugares,String nombre, String fecha, String horaSalida, String horaRegreso, String costo, String telefono, Integer idUsuario) {
+
+        this.idLugares = idLugares;
+        this.nombre = nombre;
+        this.fecha = fecha;
+        this.horaSalida = horaSalida;
+        this.horaRegreso = horaRegreso;
+        this.costo = costo;
+        this.telefono = telefono;
+        this.idUsuario = idUsuario;
+
+    }
+
+    @SerializedName("idTransporte")
     @Expose
     private Integer idTransporte;
 
-    @SerializedName("idDepartamentos")
+    @SerializedName("nombre")
     @Expose
     private String nombre;
 
-    @SerializedName("idDepartamentos")
+    @SerializedName("fecha")
     @Expose
-    private Date fecha;
+    private String fecha;
 
-    @SerializedName("idDepartamentos")
+    @SerializedName("horaSalida")
     @Expose
-    private Date horaSalida;
+    private String horaSalida;
 
-    @SerializedName("idDepartamentos")
+
+    @SerializedName("horaRegreso")
     @Expose
-    private Date horaRegreso;
+    private String horaRegreso;
 
-    @SerializedName("idDepartamentos")
+    @SerializedName("costo")
     @Expose
     private String costo;
-    @SerializedName("idDepartamentos")
+    @SerializedName("telefono")
     @Expose
     private String telefono;
-    @SerializedName("idDepartamentos")
+    @SerializedName("idUsuario")
     @Expose
     private Integer idUsuario;
-    @SerializedName("idDepartamentos")
+    @SerializedName("idLugares")
     @Expose
     private Lugares idLugares;
 
     public Transporte() {
     }
+
 
     public Transporte(Integer idTransporte) {
         this.idTransporte = idTransporte;
@@ -63,27 +79,27 @@ public class Transporte {
         this.nombre = nombre;
     }
 
-    public Date getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 
-    public Date getHoraSalida() {
+    public String getHoraSalida() {
         return horaSalida;
     }
 
-    public void setHoraSalida(Date horaSalida) {
+    public void setHoraSalida(String horaSalida) {
         this.horaSalida = horaSalida;
     }
 
-    public Date getHoraRegreso() {
+    public String getHoraRegreso() {
         return horaRegreso;
     }
 
-    public void setHoraRegreso(Date horaRegreso) {
+    public void setHoraRegreso(String horaRegreso) {
         this.horaRegreso = horaRegreso;
     }
 
@@ -119,4 +135,18 @@ public class Transporte {
         this.idLugares = idLugares;
     }
 
+    @Override
+    public String toString() {
+        return "Transporte{" +
+                "idTransporte=" + idTransporte +
+                ", nombre='" + nombre + '\'' +
+                ", fecha='" + fecha + '\'' +
+                ", horaSalida='" + horaSalida + '\'' +
+                ", horaRegreso='" + horaRegreso + '\'' +
+                ", costo='" + costo + '\'' +
+                ", telefono='" + telefono + '\'' +
+                ", idUsuario=" + idUsuario +
+                ", idLugares=" + idLugares +
+                '}';
+    }
 }

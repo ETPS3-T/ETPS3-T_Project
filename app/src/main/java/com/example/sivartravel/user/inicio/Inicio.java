@@ -3,8 +3,10 @@ package com.example.sivartravel.user.inicio;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -13,7 +15,10 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.sivartravel.MenuUser;
 import com.example.sivartravel.R;
+import com.example.sivartravel.Splash;
+import com.example.sivartravel.entidades.Lugares;
 import com.example.sivartravel.info_lugar_fragmento;
 import com.example.sivartravel.restservice.RetrofitClient;
 import com.example.sivartravel.restservice.ServicioApi;
@@ -35,7 +40,7 @@ import retrofit2.Response;
 public class Inicio extends Fragment  implements InterfaceClickListener {
     RecyclerView rvLugares;
     ArrayList<LugaresEntity> all;
-    List<com.example.sivartravel.entidades.Lugares> respuesta = new ArrayList<>();
+    List<Lugares> respuesta = new ArrayList<>();
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
        View root = inflater.inflate(R.layout.user_inicio, container, false);
@@ -46,31 +51,31 @@ public class Inicio extends Fragment  implements InterfaceClickListener {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
-
         ServicioApi service = RetrofitClient.getSOService();
-        Call<List<com.example.sivartravel.entidades.Lugares>> repos = service.getLugares();
+        Call<List<com.example.sivartravel.entidades.Lugares>> repos = service.getLugares(4);
         try {
-
             repos.enqueue(new Callback<List<com.example.sivartravel.entidades.Lugares>>() {
                 @Override
-                public void onResponse(Call<List<com.example.sivartravel.entidades.Lugares>> call, Response<List<com.example.sivartravel.entidades.Lugares>> response) {
-                    List<com.example.sivartravel.entidades.Lugares> lugaresLista = response.body();
+                public void onResponse(Call<List<Lugares>> call, Response<List<Lugares>> response) {
+                    List<Lugares> lugaresLista = response.body();
                     getLugares(lugaresLista);
                     rvLugares.setLayoutManager(new LinearLayoutManager(getContext()));
                     RecyclerViewAdapter adapter = new RecyclerViewAdapter(all, Inicio.this);
                     rvLugares.setAdapter(adapter);
                 }
                 @Override
-                public void onFailure(Call<List<com.example.sivartravel.entidades.Lugares>> call, Throwable t) {
-
+                public void onFailure(Call<List<Lugares>> call, Throwable t) {
                 }
             });
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+       // lugares();
 
-        for(com.example.sivartravel.entidades.Lugares l : respuesta){
+
+
+        for(Lugares l : respuesta){
 
             System.out.println(l.getIdMunicipio().getMunicipio());
             System.out.println(l.getDescripcion());
@@ -79,9 +84,9 @@ public class Inicio extends Fragment  implements InterfaceClickListener {
         return root;
     }
 
-    private ArrayList<LugaresEntity> getLugares(List<com.example.sivartravel.entidades.Lugares> lugaresLista){
+    private ArrayList<LugaresEntity> getLugares(List<Lugares> lugaresLista){
         all= new ArrayList<>();
-        for(com.example.sivartravel.entidades.Lugares lugar : lugaresLista)
+        for(Lugares lugar : lugaresLista)
         {
             all.add(new LugaresEntity(lugar.getImagen(), ""+lugar.getNombre(),""+lugar.getIdMunicipio().getIdDepartamentos().getDepartamentos(), ""+lugar.getDescripcion(),""+lugar.getLocalizacion(),"9:00 am - 17:00 pm", "",""));
         }
@@ -111,31 +116,5 @@ public class Inicio extends Fragment  implements InterfaceClickListener {
 
             Toast.makeText(getContext(), all.get(position).getDepartamento() + " "  + all.get(position).getLugar() , Toast.LENGTH_SHORT).show();
         }
-    }
-    public List<com.example.sivartravel.entidades.Lugares> lugares()
-    {/**
-        ServicioApi service = RetrofitClient.getSOService();
-        Call<List<com.example.sivartravel.entidades.Lugares>> repos = service.getLugares();
-        try {
-            repos.enqueue(new Callback<List<com.example.sivartravel.entidades.Lugares>>() {
-                @Override
-                public void onResponse(Call<List<Lugares>> call, Response<List<Lugares>> response) {
-                    List<Lugares> lugaresLista = response.body();
-                    System.out.println( "1 "+response.body().size());
-                    System.out.println("2 "+lugaresLista.size());
-                    for (Lugares l : lugaresLista){
-                        respuesta.add(l);
-                        System.out.println(l.getIdMunicipio().getMunicipio());
-                    }
-
-                }
-                @Override
-                public void onFailure(Call<List<Lugares>> call, Throwable t) {
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
-        return respuesta;
     }
 }
