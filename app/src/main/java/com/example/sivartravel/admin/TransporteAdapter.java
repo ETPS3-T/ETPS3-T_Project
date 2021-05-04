@@ -3,6 +3,7 @@ package com.example.sivartravel.admin;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sivartravel.R;
@@ -77,7 +79,19 @@ public class TransporteAdapter extends ArrayAdapter<Transporte> {
         rowView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(),"SIMON",Toast.LENGTH_LONG).show();
+                Bundle bundle=new Bundle();
+                bundle.putString("IdTransporte",String.valueOf(transporte.get(position).getIdTransporte()));
+                bundle.putString("Nombre",String.valueOf(transporte.get(position).getNombre()));
+                bundle.putString("Fecha",String.valueOf(transporte.get(position).getFecha()));
+                bundle.putString("HoraS",String.valueOf(transporte.get(position).getHoraSalida()));
+                bundle.putString("HoraR",String.valueOf(transporte.get(position).getHoraRegreso()));
+                bundle.putString("Costo",String.valueOf(transporte.get(position).getCosto()));
+                bundle.putString("Telefono",String.valueOf(transporte.get(position).getTelefono()));
+                bundle.putString("IdUsu",String.valueOf(transporte.get(position).getIdUsuario()));
+                bundle.putString("IdLugar",String.valueOf(transporte.get(position).getIdLugares()));
+
+
+                Navigation.findNavController(v).navigate(R.id.editarTransportes,bundle);
             }
         });
 

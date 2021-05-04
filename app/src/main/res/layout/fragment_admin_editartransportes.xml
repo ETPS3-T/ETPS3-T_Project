@@ -212,19 +212,19 @@
 
 
         <Button
-            android:id="@+id/btnGuardarUbicacion"
+            android:id="@+id/btnEditarTransporte"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/teal_700"
-            android:text="Guardar"
+            android:text="Editar"
             android:textColor="#FFFFFF" />
 
         <Button
-            android:id="@+id/btnListaUbicacion"
+            android:id="@+id/btnEliminarT"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/teal_700"
-            android:text="Ver Listado"
+            android:text="Eliminar"
             android:textColor="#FFFFFF" />
 
 

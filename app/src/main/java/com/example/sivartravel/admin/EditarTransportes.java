@@ -40,9 +40,11 @@ import retrofit2.Response;
 public class EditarTransportes extends Fragment {
 
     TextView txtDatosI,txtFecha,txtHora,txtHora1;
-    Button btnListaUbicacion,btnGuardarUbicacion;
+    Button btnEliminarT,btnEditarTransporte;
     EditText EdtTransporte,EdtDestino,EdtFecha,EdtHoraSalida,EdtHoraRegreso,EdtCosto,EdtTelefono;
     private int dia, mes, anio, hora, minutos;
+
+    Integer idT=0;
 
     Municipios MunObject = new Municipios();
     Departamentos DepartObject = new Departamentos();
@@ -60,7 +62,7 @@ public class EditarTransportes extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View root= inflater.inflate(R.layout.fragment_administrar_ubicacion, container, false);
+        View root= inflater.inflate(R.layout.fragment_admin_editartransportes, container, false);
 
 
         return root;
@@ -71,8 +73,8 @@ public class EditarTransportes extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         txtDatosI= view.findViewById(R.id.txtDatosI);
-        btnListaUbicacion=view.findViewById(R.id.btnListaUbicacion);
-        btnGuardarUbicacion=view.findViewById(R.id.btnGuardarUbicacion);
+        btnEliminarT=view.findViewById(R.id.btnEliminarT);
+        btnEditarTransporte=view.findViewById(R.id.btnEditarTransporte);
         txtFecha=view.findViewById(R.id.txtFecha);
         txtHora=view.findViewById(R.id.txtHora);
         txtHora1=view.findViewById(R.id.txtHora1);
@@ -84,6 +86,22 @@ public class EditarTransportes extends Fragment {
         EdtHoraRegreso=view.findViewById(R.id.EdtHoraRegreso);
         EdtCosto=view.findViewById(R.id.EdtCosto);
         EdtTelefono=view.findViewById(R.id.EdtTelefono);
+
+        //Asignando parametros recibidos de la primer actividad
+        idT=Integer.parseInt(getArguments().getString("IdTransporte"));
+        EdtTransporte.setText(getArguments().getString("Nombre"));
+        EdtDestino.setText(getArguments().getString("IdLugar"));
+        EdtFecha.setText(getArguments().getString("Fecha"));
+        EdtHoraSalida.setText(getArguments().getString("HoraS"));
+        EdtHoraRegreso.setText(getArguments().getString("HoraR"));
+        EdtCosto.setText(getArguments().getString("Costo"));
+        EdtTelefono.setText(getArguments().getString("Telefono"));
+
+
+
+
+
+
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
         txtFecha.setOnClickListener(this::AbrirC);
@@ -115,13 +133,13 @@ public class EditarTransportes extends Fragment {
         l.setIdMunicipio(MunObject);
         l.setIdUsuario(UserObject);
 
-        btnGuardarUbicacion.setOnClickListener(new View.OnClickListener() {
+        btnEditarTransporte.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 if (!validar()) return ;
                 else
-                    AgregarTransporte();
+                    EditarTransporte();
             }
 
 
@@ -130,17 +148,34 @@ public class EditarTransportes extends Fragment {
 
 
 
-        btnListaUbicacion.setOnClickListener(new View.OnClickListener() {
+        btnEliminarT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Navigation.findNavController(v).navigate(R.id.listadoDestinos);
-
+                //Navigation.findNavController(v).navigate(R.id.listadoDestinos);
+                if (!validar()) return ;
+                else
+                 eliminar(idT);
             }
         });
 
 
        // ObtenerTransportes();
+
+
+    }
+
+    public void eliminar(Integer codigo) {
+        TransporteApo service = RetrofitClient.getSOTransporte();
+        Call<Transporte> repos = service.deleteTransporte(codigo);
+
+        try {
+            Toast.makeText(getContext(), "Registro Eliminado "+codigo,
+                    Toast.LENGTH_LONG).show();
+            repos.execute();
+
+        }catch (Exception e){
+
+        }
 
 
     }
@@ -293,7 +328,7 @@ public class EditarTransportes extends Fragment {
     }
 
 
-    public void AgregarTransporte() {
+    public void EditarTransporte() {
 
 
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
@@ -319,10 +354,10 @@ public class EditarTransportes extends Fragment {
            Transporte t = new Transporte(l,EdtTransporte.getText().toString(),EdtFecha.getText().toString(), EdtHoraSalida.getText().toString(),
                    EdtHoraRegreso.getText().toString(), EdtCosto.getText().toString(), EdtTelefono.getText().toString(), 1);
            TransporteApo service = RetrofitClient.getSOTransporte();
-           Call<Transporte> repos = service.addTransporte(t);
+           Call<Transporte> repos = service.UpdateTransporte(t);
            System.out.println(t.toString());
            try {
-               Toast.makeText(getContext(), "Registro Agregado satisfactoriamente",
+               Toast.makeText(getContext(), "Registro Actualizado",
                        Toast.LENGTH_LONG).show();
                repos.execute();
 

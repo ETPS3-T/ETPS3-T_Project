@@ -75,7 +75,11 @@ public class AdministrarUbicacion extends Fragment {
                              Bundle savedInstanceState) {
 
         View root= inflater.inflate(R.layout.fragment_administrar_ubicacion, container, false);
-
+        if (android.os.Build.VERSION.SDK_INT > 9)
+        {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
 
         return root;
     }
@@ -326,6 +330,11 @@ public class AdministrarUbicacion extends Fragment {
         t.setTelefono(EdtTelefono.getText().toString());
         t.setIdLugares(l);
         t.setIdUsuario(1); */
+        if (android.os.Build.VERSION.SDK_INT > 9)
+        {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
 
 
        try {
@@ -337,9 +346,23 @@ public class AdministrarUbicacion extends Fragment {
            Call<Transporte> repos = service.addTransporte(t);
            System.out.println(t.toString());
            try {
-               Toast.makeText(getContext(), "Registro Agregado satisfactoriamente",
-                       Toast.LENGTH_LONG).show();
-               repos.execute();
+
+               repos.enqueue(new Callback<Transporte>() {
+                   @Override
+                   public void onResponse(Call<Transporte> call, Response<Transporte> response) {
+
+                   }
+
+                   @Override
+                   public void onFailure(Call<Transporte> call, Throwable t) {
+                       System.out.println("No se pudo: "+t.getMessage());
+                       System.out.println(t.getStackTrace());
+                       System.out.println(t.getCause());
+                       for (StackTraceElement e:t.getStackTrace()){
+                           System.out.println(e.toString());
+                       }
+                   }
+               });
 
            }catch (Exception e){
 
