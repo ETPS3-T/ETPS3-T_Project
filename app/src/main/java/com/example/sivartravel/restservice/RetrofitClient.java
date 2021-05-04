@@ -1,8 +1,6 @@
 package com.example.sivartravel.restservice;
 
 import com.example.sivartravel.Constantes;
-import com.example.sivartravel.entidades.Lugares;
-import com.example.sivartravel.Constantes;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

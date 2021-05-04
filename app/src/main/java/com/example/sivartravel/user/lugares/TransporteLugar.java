@@ -1,12 +1,13 @@
 package com.example.sivartravel.user.lugares;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.ViewFlipper;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -28,12 +29,13 @@ public class TransporteLugar extends Fragment {
 
         Bundle argumentos=this.getArguments();
         String transporte =argumentos.getString("Lugares");
+
         lugarSelect= JsonUtil.getGsonParser().fromJson(transporte, LugaresEntity.class);
 
         lb= root.findViewById(R.id.textLugar);
         Atras=root.findViewById(R.id.btnAtrasX);
 
-        lb.setText(lugarSelect.getLugar());
+        lb.setText(lugarSelect.getX()+lugarSelect.getY());
 
 
         Atras.setOnClickListener(new View.OnClickListener() {
@@ -51,5 +53,15 @@ public class TransporteLugar extends Fragment {
         });
 
         return root;
+    }
+
+
+    public void OnBackPressed() {
+        Lugares tl2 = new Lugares();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.nav_host_fragment, tl2);
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }

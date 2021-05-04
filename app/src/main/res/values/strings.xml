@@ -16,20 +16,19 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <array name="Departures">
+        <item>La Libertad</item>
+        <item>San Salvador</item>
+        <item>San Miguel</item>
+        <item>Ahuachapán</item>
+        <item>San Vicente</item>
+        <item>La Paz</item>
+        <item>Usulutan</item>
+        <item>La Unión</item>
+        <item>Morazán</item>
+        <item>Cabañas</item>
         <item>Chalatenango</item>
         <item>Santa Ana</item>
-        <item>San Salvador</item>
-        <item>Cabañas</item>
-        <item>La Paz</item>
-        <item>Sonsonate</item>
-        <item>La Libertad</item>
-        <item>Cuscatlan</item>
-        <item>Morazan</item>
-        <item>Usulutan</item>
-        <item>Santa Tecla</item>
-        <item>San Miguel</item>
-        <item>La Union</item>
-        <item>San Vicente</item>
+        <item>Cuscatlán</item>
     </array>
     <string name="title_activity_no_sirve">Map</string>
 </resources>
