@@ -23,6 +23,7 @@ import java.util.zip.Inflater;
 
 public class MenuUser extends AppCompatActivity{
 
+
     private AppBarConfiguration mAppBarConfiguration;
     private DrawerLayout drawer;
     private NavigationView navigationView;
