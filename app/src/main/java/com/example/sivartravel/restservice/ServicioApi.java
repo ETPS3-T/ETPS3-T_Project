@@ -34,8 +34,11 @@ public interface ServicioApi {
     @GET("Departamentos")
     Call<List<Departamentos>> getDepartamentos();
 
-    @GET("Usuarios")
-    Call<List<Usuarios>> getUsers();
+    @GET("Usuarios/{id}")
+    Call<List<Usuarios>> getUsers(@Path("id") Integer id);
+
+    @POST("Lugares")
+    Call<Lugares> insertPlace(@Body Lugares lugares);
 
     @POST("Lugares")
     Call<Lugares> setLugares(@Body Lugares lugares);

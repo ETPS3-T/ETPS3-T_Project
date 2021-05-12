@@ -24,7 +24,8 @@ public class Usuarios {
         this.idUsuario = idUsuario;
     }
 
-    public Usuarios(Integer idUsuario, String nombre, String apellido, String correo, String clave, String tipo) {
+    public Usuarios(Integer idUsuario, String nombre, String apellido, String correo, String clave, String tipo)
+    {
         this.idUsuario = idUsuario;
         this.nombre = nombre;
         this.apellido = apellido;
