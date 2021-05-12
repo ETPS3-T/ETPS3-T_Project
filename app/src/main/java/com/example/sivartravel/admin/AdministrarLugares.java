@@ -46,6 +46,10 @@ public class AdministrarLugares extends Fragment
     int idMuni = 0;
     String Municipio = "";
     String Departamentos = "";
+    String NombreLugar = "";
+    String Localizacion = "";
+    String DescripciónL = "";
+    String URLImagen = "";
 
     Departamentos DepartObject = new Departamentos();
     Municipios MunObject = new Municipios();
@@ -71,6 +75,7 @@ public class AdministrarLugares extends Fragment
         SpinMunicipio = view.findViewById(R.id.SpinMunicipio);
 
         CargarDatosSpinners();
+        CargarDatosUsuario();
 
         SpinDepartamentos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
         {
@@ -104,31 +109,32 @@ public class AdministrarLugares extends Fragment
             {
                 if(Comprobar())
                 {
-                    SetData();
+                    DepartObject.setIdDepartamentos(idDep);
+                    DepartObject.setDepartamentos(Departamentos);
+                    MunObject.setIdMunicipio(idMuni);
+                    MunObject.setMunicipio(Municipio);
+                    MunObject.setIdDepartamentos(DepartObject);
 
-                    Lugares lugares = new Lugares(EdtNombreLugar.getText().toString(), URLimage.getText().toString(), EdtDescripcionLugar.getText().toString(), EdtLocationLugar.getText().toString(), MunObject, UserObject);
+                    try
+                    {
+                        Lugares lugares = new Lugares(NombreLugar, URLImagen, DescripciónL, Localizacion, MunObject, UserObject);
 
-                    Call<Lugares> AgregarL = srv.setLugares(lugares);
+                        Call<Lugares> AddPlace = srv.insertPlace(lugares);
 
-                    AgregarL.enqueue(new Callback<Lugares>() {
-                        @Override
-                        public void onResponse(Call<Lugares> call, Response<Lugares> response)
-                        {
-                            if(response.code() == 200)
-                            {
-                                Toast.makeText(view.getContext().getApplicationContext(), "Lugar agregado satisactoriamente" , Toast.LENGTH_SHORT).show();
-                            }
-                            else
-                            {
-                                Toast.makeText(view.getContext().getApplicationContext(), "¡Algo fallo!" , Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                        @Override
-                        public void onFailure(Call<Lugares> call, Throwable t)
-                        {
-                            Toast.makeText(view.getContext().getApplicationContext(), "¡Algo fallo! " +t.getMessage() , Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                        Response<Lugares> response = AddPlace.execute();
+
+                        Toast.makeText(view.getContext().getApplicationContext(), "Lugar agregado satisactoriamente" , Toast.LENGTH_SHORT).show();
+                        EdtDescripcionLugar.setText("");
+                        EdtNombreLugar.setText("");
+                        EdtLocationLugar.setText("");
+                        URLimage.setText("");
+
+                        System.out.println(response.body());
+                    }
+                    catch (Exception ex)
+                    {
+                        ex.printStackTrace();
+                    }
                 }
                 else
                 {
@@ -153,26 +159,7 @@ public class AdministrarLugares extends Fragment
 
     public void CargarDatosUsuario()
     {
-        Call<List<com.example.sivartravel.entidades.Usuarios>> Usr = srv.getUsers();
-
-        try
-        {
-            Usr.enqueue(new Callback<List<Usuarios>>()
-            {
-                @Override
-                public void onResponse(Call<List<Usuarios>> call, Response<List<Usuarios>> response)
-                {
-
-                }
-                @Override
-                public void onFailure(Call<List<Usuarios>> call, Throwable t)
-                {
-
-                }
-            });
-        }
-        catch (Exception e) { e.printStackTrace(); }
-
+        UserObject.setIdUsuario(1);
     }
 
     public void CargarDatosSpinners()
@@ -240,6 +227,10 @@ public class AdministrarLugares extends Fragment
     {
         if(!EdtNombreLugar.getText().toString().isEmpty() && !EdtLocationLugar.getText().toString().isEmpty() && !EdtDescripcionLugar.getText().toString().isEmpty() && !URLimage.getText().toString().isEmpty())
         {
+            NombreLugar = EdtNombreLugar.getText().toString();
+            DescripciónL = EdtDescripcionLugar.getText().toString();
+            URLImagen = URLimage.getText().toString();
+            Localizacion = EdtLocationLugar.getText().toString();
             return true;
         }
         else
@@ -272,23 +263,7 @@ public class AdministrarLugares extends Fragment
         return  AllMun;
     }
 
-    public void SetData()
-    {
-        DepartObject.setIdDepartamentos(idDep);
-        DepartObject.setDepartamentos(Departamentos);
-        MunObject.setIdMunicipio(idMuni);
-        MunObject.setMunicipio(Municipio);
-        MunObject.setIdDepartamentos(DepartObject);
-        UserObject.setIdUsuario(1);
-        UserObject.setNombre("Douglas Isaias");
-        UserObject.setApellido("Valle Ortíz");
-        UserObject.setCorreo("2516122016@mail.utec.edu.sv");
-        UserObject.setClave("admin");
-        UserObject.setTipo("1");
-        UserObject.setEstado(1);
 
-        Toast.makeText(getContext().getApplicationContext() , "Selected: " +Municipio , Toast.LENGTH_SHORT).show();
-    }
 
     //Otros metodos del fragment que no se usarán
     // TODO: Rename parameter arguments, choose names that match
