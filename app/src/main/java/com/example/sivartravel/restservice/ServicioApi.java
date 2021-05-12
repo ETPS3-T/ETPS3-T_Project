@@ -3,6 +3,7 @@ package com.example.sivartravel.restservice;
 import androidx.annotation.NonNull;
 
 import com.example.sivartravel.entidades.Departamentos;
+import com.example.sivartravel.entidades.Lugares;
 import com.example.sivartravel.entidades.Municipios;
 import com.example.sivartravel.entidades.Usuarios;
 
@@ -37,7 +38,7 @@ public interface ServicioApi {
     Call<List<Usuarios>> getUsers();
 
     @POST("Lugares")
-    Call<com.example.sivartravel.entidades.Lugares> setLugares(@Body com.example.sivartravel.entidades.Lugares lugares);
+    Call<Lugares> setLugares(@Body Lugares lugares);
 
 
     @GET("Lugares/Max/{id}")

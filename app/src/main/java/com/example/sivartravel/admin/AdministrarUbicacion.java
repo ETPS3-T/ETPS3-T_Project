@@ -262,6 +262,7 @@ public class AdministrarUbicacion extends Fragment {
 
 
     private boolean validar() {
+
         String transpor = EdtTransporte.getText().toString().trim();
         String destinos = EdtDestino.getText().toString().trim();
         String fecha = EdtFecha.getText().toString().trim();
