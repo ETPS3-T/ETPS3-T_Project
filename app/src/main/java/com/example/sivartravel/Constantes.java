@@ -2,5 +2,5 @@ package com.example.sivartravel;
 
 public class Constantes {
 
-    public static final String BASE_URL="http://23.251.151.4/ApiSivar/";
+    public static final String BASE_URL="http://35.239.238.56/ApiSivar/";
 }
