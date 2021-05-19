@@ -5,7 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -14,6 +16,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sivartravel.R;
+import com.example.sivartravel.entidades.Departamentos;
 import com.example.sivartravel.restservice.RetrofitClient;
 import com.example.sivartravel.restservice.ServicioApi;
 import com.example.sivartravel.user.adaptador.InterfaceClickListener;
@@ -46,7 +49,8 @@ public class Lugares extends Fragment implements OnMapReadyCallback, InterfaceCl
     private Spinner spDepartures;
     private View root;
     private RecyclerView Rec;
-    private ArrayList<LugaresEntity> x= new ArrayList<>();;
+    private ArrayList<LugaresEntity> x= new ArrayList<>();
+    private ArrayList AllDp= new ArrayList<>();
     private List<Lugares> respuesta = new ArrayList<>();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -55,7 +59,36 @@ public class Lugares extends Fragment implements OnMapReadyCallback, InterfaceCl
 
         spDepartures = root.findViewById(R.id.spDepa);
         Rec = (RecyclerView)root.findViewById(R.id.Rec);
+        ServicioApi service = RetrofitClient.getSOService();
 
+        Call<List<com.example.sivartravel.entidades.Departamentos>> Dep = service.getDepartamentos();
+
+        try
+        {
+            Dep.enqueue(new Callback<List<com.example.sivartravel.entidades.Departamentos>>()
+            {
+                @Override
+                public void onResponse(Call<List<Departamentos>> call, Response<List<Departamentos>> response) {
+
+                    if(!response.isSuccessful()){
+                        Toast.makeText(getActivity().getApplicationContext(), "ERROR "+response.code(), Toast.LENGTH_SHORT).show(); return;}
+
+                    List<Departamentos> Dp = response.body();
+
+                    ObtenerDepartamentos(Dp);
+
+                    ArrayAdapter<String> Adapter;
+                    Adapter = new ArrayAdapter(getActivity().getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, AllDp);
+                    spDepartures.setAdapter(Adapter);
+                }
+
+                @Override
+                public void onFailure(Call<List<Departamentos>> call, Throwable t) {
+
+                }
+
+            });
+        }catch (Exception e){}
         spDepartures.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> spn,View v,int position ,long id) {
@@ -64,7 +97,7 @@ public class Lugares extends Fragment implements OnMapReadyCallback, InterfaceCl
                 if(x.size()>0)
                     x.clear();
 
-                ServicioApi service = RetrofitClient.getSOService();
+
                 Call<List<com.example.sivartravel.entidades.Lugares>> repos = service.getSpecificLugar(h);
 
                 try{
@@ -112,17 +145,6 @@ public class Lugares extends Fragment implements OnMapReadyCallback, InterfaceCl
             }
         });
 
-        /*
-        for(int g=0;g<=x.size();g++){
-            mimapa.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(x.get(g).getX()), Double.parseDouble(x.get(1).getY()))).title(x.get(g).getLugar()).snippet(x.get(g).getDepartamento()));
-        }
-        for(int h=0; h<x.size();h++){
-
-            mimapa.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(x.get(h).getX()), Double.parseDouble(x.get(h).getY()))).title(x.get(h).getLugar()).snippet(x.get(h).getDepartamento()));
-        }*/
-        for(int h=0; h<x.size();h++) {
-
-        }
             return root;
     }
 
@@ -193,6 +215,17 @@ public class Lugares extends Fragment implements OnMapReadyCallback, InterfaceCl
         transaction.commit();
 
 
+    }
+    public ArrayList<String> ObtenerDepartamentos(List<Departamentos> List1)
+    {
+        AllDp = new ArrayList<>();
+
+        for(Departamentos dp1 : List1)
+        {
+            AllDp.add(dp1.getDepartamentos());
+        }
+
+        return AllDp;
     }
 
 

@@ -27,9 +27,11 @@ public class MenuUser extends AppCompatActivity{
     private AppBarConfiguration mAppBarConfiguration;
     private DrawerLayout drawer;
     private NavigationView navigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.user_menu_activity);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
