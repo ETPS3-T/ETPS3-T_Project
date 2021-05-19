@@ -121,15 +121,31 @@ public class AdministrarLugares extends Fragment
 
                         Call<Lugares> AddPlace = srv.insertPlace(lugares);
 
-                        Response<Lugares> response = AddPlace.execute();
+                        AddPlace.enqueue(new Callback<Lugares>()
+                        {
+                            @Override
+                            public void onResponse(Call<Lugares> call, Response<Lugares> response)
+                            {
+                                if(response.code() == 200)
+                                {
+                                    Toast.makeText(view.getContext().getApplicationContext(), "Lugar agregado satisactoriamente" , Toast.LENGTH_SHORT).show();
+                                    EdtDescripcionLugar.setText("");
+                                    EdtNombreLugar.setText("");
+                                    EdtLocationLugar.setText("");
+                                    URLimage.setText("");
+                                }
+                                else
+                                {
+                                    Toast.makeText(view.getContext().getApplicationContext(), "Hubo un error " +response.code() , Toast.LENGTH_SHORT).show();
+                                }
+                            }
 
-                        Toast.makeText(view.getContext().getApplicationContext(), "Lugar agregado satisactoriamente" , Toast.LENGTH_SHORT).show();
-                        EdtDescripcionLugar.setText("");
-                        EdtNombreLugar.setText("");
-                        EdtLocationLugar.setText("");
-                        URLimage.setText("");
-
-                        System.out.println(response.body());
+                            @Override
+                            public void onFailure(Call<Lugares> call, Throwable t)
+                            {
+                                Toast.makeText(view.getContext().getApplicationContext(), "Fatal error " +t.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     }
                     catch (Exception ex)
                     {
