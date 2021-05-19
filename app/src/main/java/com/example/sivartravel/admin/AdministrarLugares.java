@@ -157,7 +157,6 @@ public class AdministrarLugares extends Fragment
                     Toast.makeText(getActivity().getApplicationContext(), "Ingrese los datos e imagenes requeridas" , Toast.LENGTH_LONG).show();
                 }
 
-
             }
         });
 
