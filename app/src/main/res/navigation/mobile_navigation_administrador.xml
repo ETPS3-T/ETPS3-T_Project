@@ -14,9 +14,6 @@
         <action
             android:id="@+id/action_admin_Inicio_to_pruebaBd"
             app:destination="@id/pruebaBd" />
-        <action
-            android:id="@+id/action_admin_Inicio_to_administrarLugares"
-            app:destination="@id/administrarLugares" />
     </fragment>
     <fragment
         android:id="@+id/pruebaBd"
@@ -29,8 +26,17 @@
         android:label="Administrar lugares"
         tools:layout="@layout/fragment_administrar_lugares" >
         <action
-            android:id="@+id/action_administrarLugares_to_admin_Inicio"
-            app:destination="@id/admin_Inicio" />
+            android:id="@+id/action_administrarLugares_to_listadoLugares"
+            app:destination="@id/listadoLugares" />
+    </fragment>
+    <fragment
+        android:id="@+id/listadoLugares"
+        android:name="com.example.sivartravel.admin.ListadoLugares"
+        android:label="listado Lugares"
+        tools:layout="@layout/fragment_listado_lugares" >
+        <action
+            android:id="@+id/action_listadoLugares_to_administrarLugares"
+            app:destination="@id/administrarLugares" />
     </fragment>
     <fragment
         android:id="@+id/administrarUbicacion"

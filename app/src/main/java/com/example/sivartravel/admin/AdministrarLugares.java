@@ -5,6 +5,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+
 import android.os.StrictMode;
 import android.text.Editable;
 import android.util.Log;
@@ -128,7 +130,7 @@ public class AdministrarLugares extends Fragment
                             {
                                 if(response.code() == 200)
                                 {
-                                    Toast.makeText(view.getContext().getApplicationContext(), "Lugar agregado satisactoriamente" , Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(view.getContext().getApplicationContext(), "Lugar agregado satisfactoriamente" , Toast.LENGTH_SHORT).show();
                                     EdtDescripcionLugar.setText("");
                                     EdtNombreLugar.setText("");
                                     EdtLocationLugar.setText("");
@@ -168,6 +170,7 @@ public class AdministrarLugares extends Fragment
                 /* Aqui va la actividad que carga la lista de lugares en MODO ADMIN
                 Intent OpenList = new Intent(AdministrarLugares.this, );
                 startActivity(OpenList);*/
+                Navigation.findNavController(v).navigate(R.id.listadoLugares);
             }
         });
     }
