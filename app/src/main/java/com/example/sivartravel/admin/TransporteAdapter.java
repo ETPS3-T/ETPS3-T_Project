@@ -58,21 +58,21 @@ public class TransporteAdapter extends ArrayAdapter<Transporte> {
         TextView tvHoraRegreso=rowView.findViewById(R.id.tvHoraRegreso);
         TextView tvCosto=rowView.findViewById(R.id.tvCosto);
         TextView tvTelefono=rowView.findViewById(R.id.tvTelefono);
-        TextView tvidUsuario=rowView.findViewById(R.id.tvidUsuario);
+        //TextView tvidUsuario=rowView.findViewById(R.id.tvidUsuario);
         TextView tvidLugares=rowView.findViewById(R.id.tvidLugares);
 
 
 
 
-        tvIdtransporte.setText(String.format("IdTransporte:%s",transporte.get(position).getIdTransporte()));
+        tvIdtransporte.setText(String.format("Id Transporte:%s",transporte.get(position).getIdTransporte()));
         tvNombre.setText(String.format("Nombre:%s",transporte.get(position).getNombre()));
         tvFecha.setText(String.format("Fecha:%s",transporte.get(position).getFecha()));
         tvHoraSalida.setText(String.format("Hora Salida:%s",transporte.get(position).getHoraSalida()));
         tvHoraRegreso.setText(String.format("Hora Regreso:%s",transporte.get(position).getHoraRegreso()));
         tvCosto.setText(String.format("Costo:%s",transporte.get(position).getCosto()));
         tvTelefono.setText(String.format("Telefono:%s",transporte.get(position).getTelefono()));
-        tvidUsuario.setText(String.format("id Usuario:%s",transporte.get(position).getIdUsuario()));
-        tvidLugares.setText(String.format("id Lugar:%s",transporte.get(position).getIdLugares().getIdLugares()));
+        //tvidUsuario.setText(String.format("id Usuario:%s",transporte.get(position).getIdUsuario()));
+        tvidLugares.setText(String.format("Lugar:%s",transporte.get(position).getIdLugares().getNombre()));
 
         //Implementar metodo para actualizar datos
 
@@ -88,7 +88,7 @@ public class TransporteAdapter extends ArrayAdapter<Transporte> {
                 bundle.putString("Costo",String.valueOf(transporte.get(position).getCosto()));
                 bundle.putString("Telefono",String.valueOf(transporte.get(position).getTelefono()));
                 bundle.putString("IdUsu",String.valueOf(transporte.get(position).getIdUsuario()));
-                bundle.putString("IdLugar",String.valueOf(transporte.get(position).getIdLugares()));
+                bundle.putString("IdLugar",String.valueOf(transporte.get(position).getIdLugares().getIdLugares()));
 
 
                 Navigation.findNavController(v).navigate(R.id.editarTransportes,bundle);

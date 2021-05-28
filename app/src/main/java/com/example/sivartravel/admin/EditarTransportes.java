@@ -3,12 +3,17 @@ package com.example.sivartravel.admin;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.os.StrictMode;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -25,9 +30,11 @@ import com.example.sivartravel.entidades.Municipios;
 import com.example.sivartravel.entidades.Transporte;
 import com.example.sivartravel.entidades.Usuarios;
 import com.example.sivartravel.restservice.RetrofitClient;
+import com.example.sivartravel.restservice.ServicioApi;
 import com.example.sivartravel.restservice.TransporteApo;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -46,10 +53,18 @@ public class EditarTransportes extends Fragment {
 
     Integer idT=0;
 
+
+    private Spinner SpinDestinos;
+    public Lugares ObjLugar = null;
+
     Municipios MunObject = new Municipios();
     Departamentos DepartObject = new Departamentos();
     Usuarios UserObject = new Usuarios();
     Lugares l=new Lugares();
+
+
+    ArrayList<String> ArrayLugares;
+    ArrayList<Lugares> lugarC;
 
 
 
@@ -72,6 +87,8 @@ public class EditarTransportes extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        CargarDatosSpinners();
+
         txtDatosI= view.findViewById(R.id.txtDatosI);
         btnEliminarT=view.findViewById(R.id.btnEliminarT);
         btnEditarTransporte=view.findViewById(R.id.btnEditarTransporte);
@@ -80,7 +97,7 @@ public class EditarTransportes extends Fragment {
         txtHora1=view.findViewById(R.id.txtHora1);
 
         EdtTransporte=view.findViewById(R.id.EdtTransporte);
-        EdtDestino=view.findViewById(R.id.EdtDestino); //Borrar!
+        SpinDestinos=view.findViewById(R.id.SpinDestino); //Borrar!
         EdtFecha=view.findViewById(R.id.EdtFecha);
         EdtHoraSalida=view.findViewById(R.id.EdtHoraSalida);
         EdtHoraRegreso=view.findViewById(R.id.EdtHoraRegreso);
@@ -90,7 +107,7 @@ public class EditarTransportes extends Fragment {
         //Asignando parametros recibidos de la primer actividad
         idT=Integer.parseInt(getArguments().getString("IdTransporte"));
         EdtTransporte.setText(getArguments().getString("Nombre"));
-        EdtDestino.setText(getArguments().getString("IdLugar"));
+//        EdtDestino.setText(getArguments().getString("IdLugar"));
         EdtFecha.setText(getArguments().getString("Fecha"));
         EdtHoraSalida.setText(getArguments().getString("HoraS"));
         EdtHoraRegreso.setText(getArguments().getString("HoraR"));
@@ -125,21 +142,59 @@ public class EditarTransportes extends Fragment {
         UserObject.setTipo("1");
         UserObject.setEstado(1);
 
-        l.setIdLugares(1);
-        l.setNombre("El Imposible");
-        l.setImagen("https://i.pinimg.com/736x/37/c3/ad/37c3adaa5545c43918ae069428398365.jpg");
-        l.setDescripcion("El Parque Nacional El Imposible es un parque nacional en El Salvador. Fue creado el 1 de enero de 1989 y cubre un área de 5,000 hectáreas. Esta área natural protegida es considerada la reliquia natural más importante del país por ser un ecosistema amenazado a nivel mundial (bosque tropical seco y tropical seco premontano), pero también por ser uno de los últimos refugios para una comunidad increíblemente diversa de vida silvestre, fuente de recursos hídricos para la zona y poseedor de belleza es");
+       // l.setIdLugares(1);
+       // l.setNombre("El Imposible");
+       // l.setImagen("https://i.pinimg.com/736x/37/c3/ad/37c3adaa5545c43918ae069428398365.jpg");
+       // l.setDescripcion("El Parque Nacional El Imposible es un parque nacional en El Salvador. Fue creado el 1 de enero de 1989 y cubre un área de 5,000 hectáreas. Esta área natural protegida es considerada la reliquia natural más importante del país por ser un ecosistema amenazado a nivel mundial (bosque tropical seco y tropical seco premontano), pero también por ser uno de los últimos refugios para una comunidad increíblemente diversa de vida silvestre, fuente de recursos hídricos para la zona y poseedor de belleza es");
        // l.setLocalizacion("x= 13.8332149, y= -89.9368555");
-        l.setIdMunicipio(MunObject);
-        l.setIdUsuario(UserObject);
+       // l.setIdMunicipio(MunObject);
+       // l.setIdUsuario(UserObject);
+
+        SpinDestinos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                //Toast.makeText(parent.getContext(),"chi: "+lugarC.get(position).getNombre(),Toast.LENGTH_LONG).show();
+               // Toast.makeText(parent.getContext(),"chi: "+parent.getItemAtPosition(position).toString(),Toast.LENGTH_LONG).show();
+              /*  IdLugares=Integer.parseInt(String.valueOf(lugarC.get(position).getIdLugares()));
+                Nombre=lugarC.get(position).getNombre();
+                Imagen=lugarC.get(position).getImagen();
+                Descripcion=lugarC.get(position).getDescripcion();
+                Localizacion=lugarC.get(position).getLocalizacion();
+                IdMunicipio=lugarC.get(position).getIdMunicipio(); */
+
+               // txtSeleccion.setText("Id:"+lugarC.get(position).getNombre());
+                l.setIdLugares(lugarC.get(position).getIdLugares());
+                l.setNombre(lugarC.get(position).getNombre());
+                l.setImagen(lugarC.get(position).getImagen());
+                l.setDescripcion(lugarC.get(position).getDescripcion());
+                //l.setLocalizacion(Localizacion);
+                l.setIdMunicipio(lugarC.get(position).getIdMunicipio());
+                l.setIdUsuario(lugarC.get(position).getIdUsuario());
+
+
+                Log.d("QUE MANDA", lugarC.get(position).getNombre());
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         btnEditarTransporte.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if (!validar()) return ;
-                else
+                if (!validar()) {
+                    return ;
+                }
+                else {
                     EditarTransporte();
+                Navigation.findNavController(v).navigate(R.id.listadoDestinos);
+                }
+
             }
 
 
@@ -152,9 +207,14 @@ public class EditarTransportes extends Fragment {
             @Override
             public void onClick(View v) {
                 //Navigation.findNavController(v).navigate(R.id.listadoDestinos);
-                if (!validar()) return ;
-                else
-                 eliminar(idT);
+                if (!validar()) {
+                    return ;
+                }
+                else{
+                    eliminar(idT);
+                    Navigation.findNavController(v).navigate(R.id.listadoDestinos);
+                }
+
             }
         });
 
@@ -284,7 +344,7 @@ public class EditarTransportes extends Fragment {
 
     private boolean validar() {
         String transpor = EdtTransporte.getText().toString().trim();
-        String destinos = EdtDestino.getText().toString().trim();
+//        String destinos = EdtDestino.getText().toString().trim();
         String fecha = EdtFecha.getText().toString().trim();
         String horaSalida = EdtHoraSalida.getText().toString().trim();
         String horaRegreso = EdtHoraRegreso.getText().toString().trim();
@@ -296,10 +356,7 @@ public class EditarTransportes extends Fragment {
             EdtTransporte.setError("Ingrese un transporte");
             return false;
         }
-        if (destinos.equals("")) {
-            EdtDestino.setError("Digite destino");
-            return false;
-        }
+
         if (fecha.equals("")) {
             EdtFecha.setError("Seleccione una fecha");
             return false;
@@ -351,8 +408,19 @@ public class EditarTransportes extends Fragment {
        try {
 
            Date fech = formatter.parse(EdtFecha.getText().toString());
-           Transporte t = new Transporte(l,EdtTransporte.getText().toString(),EdtFecha.getText().toString(), EdtHoraSalida.getText().toString(),
-                   EdtHoraRegreso.getText().toString(), EdtCosto.getText().toString(), EdtTelefono.getText().toString(), 1);
+         /*  Transporte t = new Transporte(l,EdtTransporte.getText().toString(),EdtFecha.getText().toString(), EdtHoraSalida.getText().toString(),
+                   EdtHoraRegreso.getText().toString(), EdtCosto.getText().toString(), EdtTelefono.getText().toString(), 1); */
+           Transporte t=new Transporte();
+           t.setIdTransporte(idT);
+           t.setNombre(EdtTransporte.getText().toString());
+           t.setFecha(EdtFecha.getText().toString());
+           t.setHoraSalida(EdtHoraSalida.getText().toString());
+           t.setHoraRegreso(EdtHoraRegreso.getText().toString());
+           t.setCosto(EdtCosto.getText().toString());
+           t.setTelefono(EdtTelefono.getText().toString());
+           t.setIdLugares(l);
+           t.setIdUsuario(1);
+
            TransporteApo service = RetrofitClient.getSOTransporte();
            Call<Transporte> repos = service.UpdateTransporte(t);
            System.out.println(t.toString());
@@ -360,6 +428,8 @@ public class EditarTransportes extends Fragment {
                Toast.makeText(getContext(), "Registro Actualizado",
                        Toast.LENGTH_LONG).show();
                repos.execute();
+
+
 
            }catch (Exception e){
 
@@ -403,6 +473,78 @@ public class EditarTransportes extends Fragment {
            e.printStackTrace();
        }
 
+    }
+
+    public void CargarDatosSpinners()
+    {
+
+        lugarC=new ArrayList<Lugares>();
+
+        if (android.os.Build.VERSION.SDK_INT > 9)
+        {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
+        ServicioApi srv = RetrofitClient.getSOService();
+        Call<List<Lugares>> Dep = srv.getLugares();
+
+        try
+        {
+            Dep.enqueue(new Callback<List<Lugares>>()
+            {
+                @Override
+                public void onResponse(Call<List<Lugares>> call, Response<List<Lugares>> response)
+                {
+                    if(!response.isSuccessful()){Toast.makeText(getActivity().getApplicationContext(), "ERROR "+response.code(), Toast.LENGTH_SHORT).show(); return;}
+
+                    List<Lugares> lugar = response.body();
+                    int i=0;
+
+                    while (i<lugar.size()){
+
+                        ObjLugar=new Lugares();
+
+                        ObjLugar.setIdLugares(lugar.get(i).getIdLugares());
+                        ObjLugar.setNombre(lugar.get(i).getNombre());
+                        ObjLugar.setImagen(lugar.get(i).getImagen());
+                        ObjLugar.setDescripcion(lugar.get(i).getDescripcion());
+                        ObjLugar.setLocalizacion(lugar.get(i).getLocalizacion());
+                        ObjLugar.setIdMunicipio(lugar.get(i).getIdMunicipio());
+                        ObjLugar.setIdUsuario(lugar.get(i).getIdUsuario());
+
+                        lugarC.add(ObjLugar);
+
+
+                        i++;
+                    }
+
+                    ObtenerLugares(lugar);
+                    //lugarC.add((ObjLugar);
+
+                    ArrayAdapter<String> Adapter = new ArrayAdapter<>(getActivity().getApplicationContext(),android.R.layout.simple_spinner_dropdown_item, ArrayLugares);
+                    SpinDestinos.setAdapter(Adapter);
+                }
+                @Override
+                public void onFailure(Call<List<Lugares>> call, Throwable t) { }
+            });
+        }
+        catch (Exception e) {e.printStackTrace();}
+
+
+
+
+    }
+
+    public ArrayList<String> ObtenerLugares(List<Lugares> List1)
+    {
+        ArrayLugares = new ArrayList<>();
+        // ArrayLugares.add("Seleccione:");
+        for(Lugares dest : List1)
+        {
+            ArrayLugares.add((dest.getIdLugares()).toString()+" "+dest.getNombre());
+        }
+
+        return ArrayLugares;
     }
 
     private void ObtenerTransportes() {
