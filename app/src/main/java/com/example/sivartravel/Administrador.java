@@ -20,7 +20,8 @@ public class Administrador extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
 
-    String correo="holii";
+
+   // String correo="holii";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,14 +37,14 @@ public class Administrador extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.R.id.nav_consultarmedicamentos_a,R.id.nav_medicamentos_a
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.admin_Inicio,R.id.pruebaBd, R.id.administrarLugares, R.id.administrarUbicacion, R.id.listadoDestinos, R.id.editarTransportes)
+                R.id.admin_Inicio,R.id.pruebaBd, R.id.administrarLugares, R.id.administrarUbicacion, R.id.listadoDestinos, R.id.editarTransportes,R.id.user_nav_logout1)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_hosta);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        UpdateNavHeader(correo);
+       // UpdateNavHeader(correo);
     }
 
     @Override
@@ -60,12 +61,16 @@ public class Administrador extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
-    /*
-    @Override
     public void onPause(){
         super.onPause();
-        finish();
-    }*/
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+
+    }
 
     public void UpdateNavHeader(String corr){
 

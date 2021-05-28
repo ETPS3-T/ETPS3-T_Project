@@ -388,6 +388,16 @@ public class AdministrarUbicacion extends Fragment {
                         Toast.LENGTH_LONG).show();
                 repos.execute();
 
+
+                EdtTransporte.setText("");
+                //  EdtDestino.setText(getArguments().getString("IdLugar"));
+                EdtFecha.setText("Ingrese Fecha");
+                EdtHoraSalida.setText("Hora salida");
+                EdtHoraRegreso.setText("Hora regreso");
+                EdtCosto.setText("");
+                EdtTelefono.setText("");
+
+
             }catch (Exception e){
 
             }

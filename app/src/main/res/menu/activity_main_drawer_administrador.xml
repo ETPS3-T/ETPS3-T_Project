@@ -22,12 +22,20 @@
             />
 
     </group>
-    <group>
+    <group android:checkableBehavior="single">
         <item
-            android:title="____________________________________" />
+            android:title=" " />
         <item
-
+            android:title=" " />
+        <item
+            android:title=" " />
+        <item
+            android:title=" " />
+        <item
+            android:title=" " />
+        <item
+            android:id="@+id/user_nav_logout1"
             android:icon="@drawable/image_icon_logout_pic_512x512"
-            android:title="CERRAR SESION" />
+            android:title="Cerrar Sesion" />
     </group>
 </menu>

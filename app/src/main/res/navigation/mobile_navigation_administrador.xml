@@ -69,4 +69,10 @@
             app:destination="@id/listadoDestinos" />
     </fragment>
 
+    <fragment
+        android:id="@+id/user_nav_logout1"
+        android:name="com.example.sivartravel.admin.Logout2"
+        android:label="Cerrar Sesion" />
+
+
 </navigation>

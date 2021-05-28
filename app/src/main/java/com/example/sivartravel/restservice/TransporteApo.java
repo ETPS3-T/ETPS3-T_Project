@@ -31,4 +31,7 @@ public interface TransporteApo {
     @PUT("Transporte")
     Call<Transporte> UpdateTransporte(@Body Transporte transporte);
 
+    @GET("Transporte/LugaresMax1/{id}")
+    Call<List<Transporte>> getTransporte(@Path("id") int id);
+
 }
