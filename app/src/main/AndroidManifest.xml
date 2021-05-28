@@ -28,7 +28,7 @@
         <activity
             android:name=".Administrador"
             android:label="@string/title_activity_admin"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/Theme.SivarTravel.NoActionBar"></activity>
 
         <activity android:name=".CreateUser" />
         <activity android:name=".Login" />
