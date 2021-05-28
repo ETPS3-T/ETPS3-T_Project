@@ -58,23 +58,7 @@ public class MenuUser extends AppCompatActivity{
                 switch (item.getItemId()){
 
                     case R.id.user_nav_logout:
-                        AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
-                        builder.setMessage("Quieres cerrar sesion");
-                        builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                Intent out = new Intent(getApplicationContext(), Login.class);
-                                startActivity(out);
 
-                            }
-                        }); builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            Intent inn = new Intent(getApplicationContext(), MenuUser.class);
-                            startActivity(inn);
-                        }
-                    });
-                        // Create the AlertDialog object and return it
-                        builder.create();
-                        builder.show();
                         break;
 
                 }
@@ -98,6 +82,7 @@ public class MenuUser extends AppCompatActivity{
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+
 
     }
 
