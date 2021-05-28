@@ -38,6 +38,7 @@ public class Ubicacion extends Fragment {
     private TextView tvHoraSR;
     private TextView tvCostoK;
     private TextView tvTelefonoK;
+    private TextView tvNombreK;
     private Spinner spinnerDestino;
 
     ArrayList<String> AllLug;
@@ -60,6 +61,7 @@ public class Ubicacion extends Fragment {
         tvHoraSR=root.findViewById(R.id.tvHoraSR);
         tvCostoK=root.findViewById(R.id.tvCostoK);
         tvTelefonoK=root.findViewById(R.id.tvTelefonoK);
+        tvNombreK=root.findViewById(R.id.tvNombreK);
         spinnerDestino=root.findViewById(R.id.spinnerDestino);
 
         CargarDatosSpinners();
@@ -72,7 +74,7 @@ public class Ubicacion extends Fragment {
                 idLug = position + 1;
                 Lugares = spinnerDestino.getSelectedItem().toString();
                 //int v1=Integer.parseInt(idLug);
-                buscarPorId(idLug);
+                ObtenerTransportes(idLug);
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) { }
@@ -128,18 +130,24 @@ public class Ubicacion extends Fragment {
 
     }
 
-    private void ObtenerTransportes() {
+    private void ObtenerTransportes(int codigo) {
         try {
             TransporteApo service = RetrofitClient.getSOTransporte();
-            Call<List<Transporte>> repos = service.getTransportes();
+            Call<List<Transporte>> repos = service.getTransporte(codigo);
             repos.enqueue(new Callback<List<Transporte>>() {
                 @Override
                 public void onResponse(Call<List<Transporte>> call, Response<List<Transporte>> response) {
                     List<Transporte> Lista = response.body();
-                    System.out.println("SI se pudo" + Lista.size());
-                    for (Transporte t : Lista) {
+                    //System.out.println("SI se pudo"+Lista.size());
+                    for (Transporte t : Lista){
                         //   txtDatosI.setText(String.valueOf(t.getIdTransporte()));
-                        System.out.println("" + t.getIdTransporte());
+                        System.out.println(""+t.getIdTransporte());
+                        tvFechaK.setText(t.getFecha());
+                        tvHoraSK.setText(t.getHoraSalida());
+                        tvHoraSR.setText(t.getHoraRegreso());
+                        tvCostoK.setText(t.getCosto());
+                        tvTelefonoK.setText(t.getTelefono());
+                        tvNombreK.setText(t.getNombre());
                     }
                 }
 
@@ -166,7 +174,6 @@ public class Ubicacion extends Fragment {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
-
         Call<List<Lugares>> Lug = servicioApi.getLugares();
         try
         {
