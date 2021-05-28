@@ -9,6 +9,8 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
+
 import java.util.List;
 
 public interface TransporteApo {
@@ -20,6 +22,8 @@ public interface TransporteApo {
     @POST("Transporte")
     Call<Transporte> addTransporte(@Body Transporte transporte);
 
+    @GET("Transporte/LugaresMax1/{id}")
+    Call<List<Transporte>> getTransporte(@Path("id") int id);
 
 
 }

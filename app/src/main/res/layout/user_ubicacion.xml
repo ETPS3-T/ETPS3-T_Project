@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#091B2D"
     tools:context=".user.informacion.Informacion">
 
     <TextView
@@ -17,33 +18,7 @@
         android:textColor="#FFFFFF"
         android:textSize="24sp" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:text="Transporte"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp" />
-
-        <Spinner
-            android:id="@+id/spinnerTransporte"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/white"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp" />
-
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -81,18 +56,48 @@
         android:paddingBottom="20dp">
 
         <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:text=" Fecha salida:"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tvFechaK"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp">
+
+        <TextView
             android:id="@+id/textView9"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
-            android:text="Lugar de salida"
+            android:text="Hora de salida:"
             android:textColor="#FFFFFF"
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/textView14"
+            android:id="@+id/tvHoraSK"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -118,12 +123,43 @@
             android:layout_weight="1"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
-            android:text="Hora de salida"
+            android:text="Hora de regreso:"
             android:textColor="#FFFFFF"
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/textView15"
+            android:id="@+id/tvHoraSR"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:text="07:00 PM"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp">
+
+        <TextView
+            android:id="@+id/tvCosto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:text="Costo:"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tvCostoK"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -166,7 +202,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView12"
+                android:id="@+id/tvTelefonoK"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="20dp"
@@ -176,7 +212,7 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/textView13"
+                android:id="@+id/tvIdK"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="20dp"

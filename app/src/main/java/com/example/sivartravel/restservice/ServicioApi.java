@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import com.example.sivartravel.entidades.Departamentos;
 import com.example.sivartravel.entidades.Lugares;
 import com.example.sivartravel.entidades.Municipios;
+import com.example.sivartravel.entidades.Transporte;
 import com.example.sivartravel.entidades.Usuarios;
 
 import java.util.List;
@@ -46,4 +47,7 @@ public interface ServicioApi {
 
     @GET("Lugares/Max/{id}")
     Call<List<Lugares>> getLugares(@Path("id") Integer id);
+
+    @GET("Transporte/LugaresMax1/{id}")
+    Call<List<Transporte>> getTransporte(@Path("id") int id);
 }
