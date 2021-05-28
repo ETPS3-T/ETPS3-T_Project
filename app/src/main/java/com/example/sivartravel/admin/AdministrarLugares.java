@@ -99,7 +99,6 @@ public class AdministrarLugares extends Fragment
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
             {
                 idMuni = AllId.get(position);
-                Toast.makeText(view.getContext().getApplicationContext(), "El id es: " +idMuni, Toast.LENGTH_SHORT).show();
                 Municipio = SpinMunicipio.getSelectedItem().toString();
             }
             @Override
