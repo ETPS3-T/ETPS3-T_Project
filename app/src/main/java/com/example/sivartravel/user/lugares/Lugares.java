@@ -42,7 +42,7 @@ import retrofit2.Response;
 
 //import static android.app.Activity.RESULT_OK;
 
-public class Lugares extends Fragment implements OnMapReadyCallback, InterfaceClickListener {
+public class Lugares extends Fragment implements InterfaceClickListener {
 
     private GoogleMap mimapa;
     private MapView mMapView;
@@ -51,7 +51,6 @@ public class Lugares extends Fragment implements OnMapReadyCallback, InterfaceCl
     private RecyclerView Rec;
     private ArrayList<LugaresEntity> x= new ArrayList<>();
     private ArrayList AllDp= new ArrayList<>();
-    private List<Lugares> respuesta = new ArrayList<>();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -86,9 +85,9 @@ public class Lugares extends Fragment implements OnMapReadyCallback, InterfaceCl
                 public void onFailure(Call<List<Departamentos>> call, Throwable t) {
 
                 }
-
             });
         }catch (Exception e){}
+
         spDepartures.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> spn,View v,int position ,long id) {
@@ -96,7 +95,6 @@ public class Lugares extends Fragment implements OnMapReadyCallback, InterfaceCl
 
                 if(x.size()>0)
                     x.clear();
-
 
                 Call<List<com.example.sivartravel.entidades.Lugares>> repos = service.getSpecificLugar(h);
 
@@ -109,7 +107,6 @@ public class Lugares extends Fragment implements OnMapReadyCallback, InterfaceCl
 
                                 List<com.example.sivartravel.entidades.Lugares> lugaresList = response.body();
 
-
                                 for(com.example.sivartravel.entidades.Lugares lugar : lugaresList)
                                 {
                                     String[] part = lugar.getLocalizacion().split(",");
@@ -120,8 +117,6 @@ public class Lugares extends Fragment implements OnMapReadyCallback, InterfaceCl
                                 RecyclerViewAdapterMini adapter = new RecyclerViewAdapterMini(x, Lugares.this);
                                 Rec.setLayoutManager(new GridLayoutManager(getContext(),2));
                                 Rec.setAdapter(adapter);
-
-
                             }else{
                                 System.out.println("ERROR EJECUCION");
                             }
@@ -137,23 +132,12 @@ public class Lugares extends Fragment implements OnMapReadyCallback, InterfaceCl
 
 
                 }
-
-
             }
             public void onNothingSelected(AdapterView<?> spn) {
 
             }
         });
-
             return root;
-    }
-
-
-    public void ada(ArrayList<LugaresEntity> je){
-
-        RecyclerViewAdapterMini adapter = new RecyclerViewAdapterMini(je, this);
-        Rec.setLayoutManager(new GridLayoutManager(getContext(),2));
-        Rec.setAdapter(adapter);
     }
 
     private ArrayList getLugaress(List<com.example.sivartravel.entidades.Lugares> lugaresLista){
@@ -170,63 +154,33 @@ public class Lugares extends Fragment implements OnMapReadyCallback, InterfaceCl
     public void onViewCreated(View view, Bundle savedInstanceState){
         super.onViewCreated(view,savedInstanceState);
 
-        mMapView = (MapView) root.findViewById(R.id.mapView);
-        if(mMapView != null){
-
-            mMapView.onCreate(null);
-            mMapView.onResume();
-            mMapView.getMapAsync(this);
-        }
     }
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-
-        MapsInitializer.initialize(getContext());
-
-        mimapa = googleMap;
-        googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-
-        googleMap.addMarker(new MarkerOptions().position(new LatLng(13.8205482, -89.135501)).title("El Salvador").snippet("NICE"));
-        CameraPosition ESA = CameraPosition.builder().target(new LatLng(13.8205482, -89.135501)).zoom(10).bearing(0).tilt(35).build();
-        googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(ESA));
-    }
-
 
     @Override
     public void OnItemClick(int position) {
         TransporteLugar tl = new TransporteLugar();
 
-        /*
-        mimapa.clear();
-        mimapa.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(x.get(position).getX()), Double.parseDouble(x.get(position).getY()))).title(x.get(position).getDescripcion()).snippet("NICE"));
-        CameraPosition CHA = CameraPosition.builder().target(new LatLng(Double.parseDouble(x.get(position).getX()), Double.parseDouble(x.get(position).getY()))).zoom(15).bearing(0).tilt(35).build();
-        mimapa.moveCamera(CameraUpdateFactory.newCameraPosition(CHA));
-        */
-        Bundle args=new Bundle();
-        String jsonLugares= JsonUtil.getGsonParser().toJson(x.get(position));
+        Bundle args = new Bundle();
+        String jsonLugares = JsonUtil.getGsonParser().toJson(x.get(position));
 
         args.putString("Lugares", jsonLugares );
         tl.setArguments(args);
+
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.nav_host_fragment, tl);
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         transaction.addToBackStack(null);
         transaction.commit();
 
-
     }
+
     public ArrayList<String> ObtenerDepartamentos(List<Departamentos> List1)
     {
         AllDp = new ArrayList<>();
-
         for(Departamentos dp1 : List1)
         {
             AllDp.add(dp1.getDepartamentos());
         }
-
         return AllDp;
     }
-
-
 }

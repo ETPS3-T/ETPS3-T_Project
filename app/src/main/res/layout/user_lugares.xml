@@ -7,15 +7,11 @@
     android:background="#091B2D"
     android:orientation="vertical">
 
-    <com.google.android.gms.maps.MapView
-        android:id="@+id/mapView"
-        android:layout_width="match_parent"
-        android:layout_height="239dp" />
-
     <LinearLayout
         android:layout_width="393dp"
         android:layout_height="42dp"
-        android:layout_margin="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/circle_lines"
         android:orientation="horizontal">
 
@@ -48,8 +44,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/Rec"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="704dp"
         android:layout_marginLeft="0dp"
+        android:layout_marginTop="10dp"
         android:paddingLeft="8dp"
         android:paddingTop="5dp" />
 
