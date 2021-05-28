@@ -44,6 +44,7 @@ public class AdministrarLugares extends Fragment
     private Spinner SpinDepartamentos, SpinMunicipio;
     ArrayList<String> AllDp;
     ArrayList<String> AllMun;
+    ArrayList<Integer> AllId;
     int idDep = 0;
     int idMuni = 0;
     String Municipio = "";
@@ -76,7 +77,7 @@ public class AdministrarLugares extends Fragment
         SpinDepartamentos = view.findViewById(R.id.SpinDepartamentos);
         SpinMunicipio = view.findViewById(R.id.SpinMunicipio);
 
-        CargarDatosSpinners();
+        LoadDepartaments();
         CargarDatosUsuario();
 
         SpinDepartamentos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
@@ -85,6 +86,7 @@ public class AdministrarLugares extends Fragment
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
             {
                 idDep = position + 1;
+                LoadMunicipiosId();
                 Departamentos = SpinDepartamentos.getSelectedItem().toString();
             }
             @Override
@@ -96,7 +98,8 @@ public class AdministrarLugares extends Fragment
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
             {
-                idMuni = position + 1;
+                idMuni = AllId.get(position);
+                Toast.makeText(view.getContext().getApplicationContext(), "El id es: " +idMuni, Toast.LENGTH_SHORT).show();
                 Municipio = SpinMunicipio.getSelectedItem().toString();
             }
             @Override
@@ -167,20 +170,14 @@ public class AdministrarLugares extends Fragment
             @Override
             public void onClick(View v)
             {
-                /* Aqui va la actividad que carga la lista de lugares en MODO ADMIN
-                Intent OpenList = new Intent(AdministrarLugares.this, );
-                startActivity(OpenList);*/
                 Navigation.findNavController(v).navigate(R.id.listadoLugares);
             }
         });
     }
 
-    public void CargarDatosUsuario()
-    {
-        UserObject.setIdUsuario(1);
-    }
+    public void CargarDatosUsuario() { UserObject.setIdUsuario(1); }
 
-    public void CargarDatosSpinners()
+    public void LoadDepartaments()
     {
 
         if (android.os.Build.VERSION.SDK_INT > 9)
@@ -212,8 +209,11 @@ public class AdministrarLugares extends Fragment
             });
         }
         catch (Exception e) {e.printStackTrace();}
+    }
 
-        Call<List<com.example.sivartravel.entidades.Municipios>> Mun = srv.getMunicipios();
+    public void LoadMunicipiosId()
+    {
+        Call<List<com.example.sivartravel.entidades.Municipios>> Mun = srv.getMuniById(idDep);
 
         try
         {
@@ -227,6 +227,7 @@ public class AdministrarLugares extends Fragment
                     List<Municipios> Muni = response.body();
 
                     ObtenerMunicipios(Muni);
+                    ObtenerId(Muni);
 
                     ArrayAdapter<String> Adapter2 = new ArrayAdapter<>(getActivity().getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, AllMun);
                     SpinMunicipio.setAdapter(Adapter2);
@@ -279,6 +280,18 @@ public class AdministrarLugares extends Fragment
         }
 
         return  AllMun;
+    }
+
+    public ArrayList<Integer> ObtenerId(List<Municipios> List3)
+    {
+        AllId = new ArrayList<>();
+
+        for(Municipios id : List3)
+        {
+            AllId.add(id.getIdMunicipio());
+        }
+
+        return  AllId;
     }
 
 

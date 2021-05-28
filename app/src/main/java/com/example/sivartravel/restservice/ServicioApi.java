@@ -44,6 +44,9 @@ public interface ServicioApi {
     @POST("Lugares")
     Call<Lugares> setLugares(@Body Lugares lugares);
 
+    @GET("Municipios/Departamento/{id}")
+    Call<List<Municipios>> getMuniById(@Path("id") Integer id);
+
 
     @GET("Lugares/Max/{id}")
     Call<List<Lugares>> getLugares(@Path("id") Integer id);
