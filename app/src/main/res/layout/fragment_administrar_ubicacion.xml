@@ -53,23 +53,21 @@
         android:layout_marginTop="4dp">
         <TextView
             android:id="@+id/textView15"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
+            android:layout_weight="2"
             android:text="Destino:"
             android:textColor="@color/white"
             android:textSize="16sp" />
 
-        <EditText
-            android:id="@+id/EdtDestino"
-            android:layout_width="wrap_content"
+
+        <Spinner
+            android:id="@+id/SpinDestino"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1.5"
-            android:ems="10"
-            android:hint="Ingrese destino"
-            android:inputType="textPersonName"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white" />
+            android:layout_weight="1"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -211,21 +209,31 @@
 
 
 
-        <Button
-            android:id="@+id/btnGuardarUbicacion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/teal_700"
-            android:text="Guardar"
-            android:textColor="#FFFFFF" />
+    <Button
+        android:id="@+id/btnGuardarUbicacion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/teal_700"
+        android:text="Guardar"
+        android:textColor="#FFFFFF" />
 
-        <Button
-            android:id="@+id/btnListaUbicacion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/teal_700"
-            android:text="Ver Listado"
-            android:textColor="#FFFFFF" />
+    <Button
+        android:id="@+id/btnListaUbicacion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/teal_700"
+        android:text="Ver Listado"
+        android:textColor="#FFFFFF" />
+
+    <TextView
+        android:id="@+id/txtSeleccion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Seleccione Hora:"
+        android:visibility="invisible"
+        android:onClick="AbrirHora1"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
 
 
 </LinearLayout>
